@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_40hwo")
+display_name = "兵营"
 time = 5.0
 health = 100.0
 cost_gold = 80.0

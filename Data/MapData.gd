@@ -7,7 +7,7 @@ const DEEPSEE_LEVEL : float = -0.4 #深海
 const NORMALSEE_LEVEL : float= -0.20  # 海洋
 const CLOSESEE_LEVEL :float = 0.0 #近海
 const PLAIN_LEVEL : float= 0.3     # 平原
-const MOUNT_LEVEL : float= 0.6   # 山地
+const MOUNT_LEVEL : float= 0.5   # 山地
 const HIGHERMOUNT_LEVEL : float = 1.0 # 高山
 
 # ============ 地形类型 ============

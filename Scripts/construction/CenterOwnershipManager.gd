@@ -26,7 +26,7 @@ func _ready() -> void:
 	EventBus.team_refresh_requested.connect(refresh_all_teams)
 
 func _on_construct_build(resource: ConstructionResource, cell_pos: Vector2i) -> void:
-	if resource != ConstructionData.CENTER_RES and resource != ConstructionData.LOWERCENTER_RES:
+	if resource == null or not resource.is_center_kind():
 		return
 	# 事件只带 res+格子坐标；中心节点早就登记进 building_grid 了（建造放置时就写入，早于完工广播）
 	var center: Construction = ConstructionData.building_grid[cell_pos.x][cell_pos.y] as Construction

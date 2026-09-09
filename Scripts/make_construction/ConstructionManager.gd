@@ -1,18 +1,16 @@
 class_name ConstructionManager extends Node
-## 建造管理器：负责"把建筑放到地图格子上"的业务逻辑。
-## 包括地形校验、格子占用校验、写入建筑表、实例化建筑节点。
-## 纯逻辑，不包含任何 UI，由 UI 层（ConstructUI）调用。
 
 ## 建筑显示用的场景（挂在格子上的建筑节点）
 const CONSTRUCTION_SCENE := preload("res://Scenes/construction.tscn")
 
 ## 建筑节点挂载的容器（一般传地图根节点下的一个 Node2D），由 SetUp 注入
 var construction_container : Node2D
+var construction_factory : ConstructionFactory = ConstructionFactory.new()
 
 func SetUp(context_construction_container : Node2D) -> void:
 	construction_container = context_construction_container
 
-func try_build(cell: Vector2i, building_type: ConstructionData.Constructions, resource: ConstructionResource, out_err: Array,squad : TeamData.Team) -> bool:
+func try_build(cell: Vector2i, building_type: ConstructionData.Constructions, out_err: Array,squad : TeamData.Team) -> bool:
 	# 检查地形能否建造（ConstructModifier <= 0 表示海洋等不能建）
 	var terrain: MapData.TERRAIN = MapData.terrain_grid[cell.x][cell.y]
 	var modifier: float = ModifierData.Modifiers[terrain]["ConstructModifier"]
@@ -31,13 +29,14 @@ func try_build(cell: Vector2i, building_type: ConstructionData.Constructions, re
 		out_err.append("该格已有建筑")
 		return false
 	
+	var res : ConstructionResource = construction_factory.create_new_construction(building_type)
 	# 检查资源是否足够（can_spend 全过才能建）
-	if not _check_cost(resource, out_err,squad):
+	if not _check_cost(res, out_err,squad):
 		return false
 	# 扣资源
-	_pay_cost(resource,squad)
+	_pay_cost(res,squad)
 	# 放置建筑
-	_spawn_building(cell, resource, squad)
+	_spawn_building(cell, res, squad)
 	return true
 
 # 检查建造消耗：resource_cost_enum() 已经把 0 值过滤了，直接枚举 key

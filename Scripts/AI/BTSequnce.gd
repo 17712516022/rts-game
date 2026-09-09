@@ -1,5 +1,5 @@
 class_name BTSequnce extends BTNode
-#全成功才成功
+#顺序执行
 var children : Array[BTNode] = []
 
 func add(n : BTNode) -> BTSequnce:

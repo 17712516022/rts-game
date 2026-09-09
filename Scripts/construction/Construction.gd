@@ -14,8 +14,10 @@ func get_squad_id() -> int:
 	return squad.get_squad() if squad != null else -1
 
 ## 是不是行政中心（中心是"势力心脏"：被打到 0 不消失，而是易手换主）
+## 判断依据是 res.display_name（中心类型唯一标识），不能用 res 引用 == 模板常量：
+## 建造时工厂会 duplicate 一份配置，副本引用不等于模板，== 永远比不中。
 func is_center() -> bool:
-	return res == ConstructionData.CENTER_RES or res == ConstructionData.LOWERCENTER_RES
+	return res != null and res.is_center_kind()
 
 ## 中心易手后的免伤时长（毫秒）：防止刚易手立刻被旧主力反复夺回（演示期保护，后续做正式占领玩法可删）
 const CAPTURE_INVULN_MS := 3000

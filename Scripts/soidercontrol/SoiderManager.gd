@@ -35,3 +35,12 @@ func _draw() -> void:
 		for i in soider.tops:
 			var top : SoiderTop = i
 			draw_circle(top.global_position, top.top_res.attack_range, Color(1,1,1), false, 1, true)
+
+func get_soider_count(container : Node2D,squad : int) -> int:
+	var count : int = 0
+	var children : Array = container.get_children()
+	for i in children:
+		var child : SoiderBottom = i
+		if child.get_squad_id() == squad:
+			count += 1
+	return count

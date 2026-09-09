@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_2awc8")
 name = "次级行政中心"
+display_name = "次级行政中心"
 time = 5.0
 health = 10.0
 cost_gold = 100.0

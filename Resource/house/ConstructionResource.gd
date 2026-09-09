@@ -1,10 +1,14 @@
-## ConstructionResource：建筑资源配置，定义单个建筑的建造时间、生命值、资源消耗和产出。
-## 建筑类型枚举统一用 ConstructionData.Constructions（全局单例，不在这里重复定义）。
-## 消耗/产出在检查器里用独立的 export 变量保证可读性，
-## 运行时通过 resource_cost_enum() / output_enum() 拿到 MaterialManager.MATERIAL 枚举 key 的字典。
 class_name ConstructionResource extends Resource
 
 @export var name : String
+## 种类标识：每类建筑的唯一稳定标识（如"行政中心""农场"）。
+## 判断建筑类型一律比对它，不要用资源引用 == 模板常量——
+## 建造时 ConstructionFactory 会给每栋建筑 duplicate() 一份配置，副本引用永远不比中模板。
+@export var display_name : String = ""
+
+## 是不是行政中心类建筑（行政中心 / 次级行政中心都会划领地、可易手）
+func is_center_kind() -> bool:
+	return display_name == "行政中心" or display_name == "次级行政中心"
 ## 建造所需时间（秒）
 @export var time: float
 ## 建筑生命值

@@ -45,7 +45,7 @@ func _ready() -> void:
 		var entry: Dictionary = _button_res_map[btn]
 		var res: ConstructionResource = entry.res
 		var type: int = entry.type
-		btn.pressed.connect(func(): _try_build(res, type))
+		btn.pressed.connect(func(): _try_build(type))
 		btn.mouse_entered.connect(func(): construction_discription.show_panel(res, btn.global_position.y))
 		btn.mouse_exited.connect(construction_discription.hide_panel)
 	# 港口还没有对应的 .tres 资源，先禁用
@@ -68,7 +68,8 @@ func _on_select_one_cell(cell: Vector2i) -> void:
 	_show_panel()
 
 # 点击建筑按钮：交给建造管理器执行，结果显示在标签上
-func _try_build(resource: ConstructionResource, building_type: ConstructionData.Constructions) -> void:
+# res 由建造管理器内部工厂按 type 生成，这里只传 type
+func _try_build(building_type: ConstructionData.Constructions) -> void:
 	if construction_manager == null:
 		terrain_label.text = "建造管理器未初始化"
 		return
@@ -78,7 +79,7 @@ func _try_build(resource: ConstructionResource, building_type: ConstructionData.
 		terrain_label.text = "先点击选择一个格子"
 		return
 	var err: Array = []
-	if construction_manager.try_build(cell, building_type, resource, err , squad):
+	if construction_manager.try_build(cell, building_type, err , squad):
 		_hide_panel()
 	else:
 		terrain_label.text = err[0] if not err.is_empty() else "建造失败"

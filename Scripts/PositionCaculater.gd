@@ -32,7 +32,7 @@ func calculate_cell(mouse_pos: Vector2) -> Vector2i:
 ## 找出中心格周围 hex_distance <= closest_distance 的所有格子（含中心）。
 ## radius=0: 1, radius=1: 7, radius=2: 19, radius=3: 37（1+6+12+18）。
 ## 用 BFS + 二维访问表，稳定扩散。
-func search_closest_cell(center: Vector2i, closest_distance: int) -> Array:
+func search_closest_cell(center: Vector2i, closest_distance: int = 3) -> Array:
 	var w := MapData.map_width
 	var h := MapData.map_height
 	# 先验证中心在地图内（否则直接返回空）

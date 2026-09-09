@@ -27,7 +27,7 @@ func _on_select_one_cell(cell : Vector2i) -> void:
 	build_texture.texture = build_res.texture
 	buildhealth_progress_bar.value = build.health / build_res.health * 100
 	
-	if build_res == ConstructionData.ARMY_RES :
+	if build_res.display_name == "兵营" :
 		upgrade.text = "打开设计面板"
 	
 	show()
@@ -36,7 +36,7 @@ func _updata_text() -> void:
 	build_text_label
 
 func _on_upgrade_pressed() -> void:
-	if build_res == ConstructionData.ARMY_RES :
+	if build_res.display_name == "兵营" :
 		EventBus.start_design.emit(build.global_position)
 	
 	pass

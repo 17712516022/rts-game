@@ -27,6 +27,7 @@ SoiderComponentData="*res://Data/SoiderComponentData.gd"
 SoiderManager="*uid://ddm5atqkiu442"
 DamageCalculator="*uid://ej0rgmeffnfp"
 TeamData="*uid://hoq0fylrw7oo"
+AiTools="*uid://l4avadj2u0nt"
 
 [display]
 

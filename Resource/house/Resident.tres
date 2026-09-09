@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_uuwhi")
+display_name = "民居"
 time = 5.0
 health = 100.0
 cost_gold = 40.0

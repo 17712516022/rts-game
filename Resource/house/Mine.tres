@@ -7,6 +7,7 @@ load_path = "res://.godot/imported/mineplace.png-5471504c09f4b570c1bc2ea25556344
 
 [resource]
 script = ExtResource("1_k3ob4")
+display_name = "矿井"
 time = 5.0
 health = 100.0
 cost_gold = 40.0

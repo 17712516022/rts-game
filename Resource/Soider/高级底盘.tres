@@ -7,7 +7,7 @@
 script = ExtResource("1_x45la")
 display_name = "高级底盘"
 max_health = 2000.0
-speed = 300.0
+speed = 50.0
 defense = 100.0
 turret_slot_offsets = Array[Vector2]([Vector2(0, 0)])
 bottom_texture = ExtResource("1_wknol")
