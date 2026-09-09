@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SoiderTopResource" format=3 uid="uid://2grnsyram06f"]
+
+[ext_resource type="Script" uid="uid://diqbgbo4sy5ri" path="res://Resource/Soider/SoiderTopResource.gd" id="1_bgss6"]
+[ext_resource type="Texture2D" uid="uid://ds3r030hr8oai" path="res://art/soidler/bullet/子弹.png" id="1_s763i"]
+[ext_resource type="Texture2D" uid="uid://6syb0sypfgdk" path="res://art/soidler/火炮炮台.png" id="2_x3ayd"]
+
+[resource]
+script = ExtResource("1_bgss6")
+display_name = "火炮炮台"
+attack = 40.0
+attack_range = 240.0
+attack_coolingdown = 2.0
+top_texture = ExtResource("2_x3ayd")
+bullet_texture = ExtResource("1_s763i")
+metadata/_custom_type_script = "uid://diqbgbo4sy5ri"

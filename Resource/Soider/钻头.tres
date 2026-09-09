@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SoiderTopResource" format=3 uid="uid://hpfgkp4yxpp3"]
+
+[ext_resource type="Script" uid="uid://diqbgbo4sy5ri" path="res://Resource/Soider/SoiderTopResource.gd" id="1_ue6of"]
+[ext_resource type="Texture2D" uid="uid://dby6n4mc6ghw1" path="res://art/soidler/钻头.png" id="2_70oru"]
+
+[resource]
+script = ExtResource("1_ue6of")
+display_name = "钻头"
+attack = 40.0
+attack_range = 10.0
+top_texture = ExtResource("2_70oru")
+metadata/_custom_type_script = "uid://diqbgbo4sy5ri"

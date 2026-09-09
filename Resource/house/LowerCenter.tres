@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://y85lcr7jkybf"]
+
+[ext_resource type="Script" uid="uid://cj1dj4te55yos" path="res://Resource/house/ConstructionResource.gd" id="1_2awc8"]
+[ext_resource type="Texture2D" uid="uid://l325il4xivd7" path="res://art/construction/lowercenter.png" id="2_tcghx"]
+
+[resource]
+script = ExtResource("1_2awc8")
+name = "次级行政中心"
+time = 5.0
+health = 10.0
+cost_gold = 100.0
+cost_wood = 80.0
+output_gold = 5.0
+output_mine = 2.0
+texture = ExtResource("2_tcghx")
+metadata/_custom_type_script = "uid://cj1dj4te55yos"

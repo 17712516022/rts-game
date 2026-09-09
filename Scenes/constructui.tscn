@@ -1,0 +1,176 @@
+[gd_scene format=3 uid="uid://cerbsq8dq4afw"]
+
+[ext_resource type="Script" uid="uid://cac3n1k7m2x8q" path="res://Scripts/make_construction/ConstructUI.gd" id="1_v2k3d"]
+[ext_resource type="Script" uid="uid://dwidrkpg1ukp5" path="res://Scripts/make_construction/ConstructionDiscription.gd" id="2_jldwo"]
+[ext_resource type="Texture2D" uid="uid://bi0tm1tdv1qci" path="res://art/Empty_strategy_game_building_p_2026-08-24T10-51-46.png" id="2_vcyrl"]
+[ext_resource type="Texture2D" uid="uid://jvs8cyxl6hln" path="res://art/Empty_strategy_game_informatio_2026-08-24T11-07-23.png" id="3_s8gt7"]
+[ext_resource type="Texture2D" uid="uid://bdhslhs0k0xp2" path="res://art/construction/center.png" id="3_xw0ti"]
+[ext_resource type="Texture2D" uid="uid://l325il4xivd7" path="res://art/construction/lowercenter.png" id="4_noayh"]
+[ext_resource type="Texture2D" uid="uid://bkgn4pkoles5f" path="res://art/construction/farm.png" id="5_aiwfy"]
+[ext_resource type="Texture2D" uid="uid://busqrk7l1pclj" path="res://art/construction/resident.png" id="5_yrujd"]
+[ext_resource type="Texture2D" uid="uid://dgo16kwm0auen" path="res://art/construction/林场.png" id="6_yrujd"]
+[ext_resource type="Texture2D" uid="uid://c8kknw683bysk" path="res://art/construction/mineplace.png" id="7_pt4nq"]
+[ext_resource type="Texture2D" uid="uid://dnlf1wwcwoigl" path="res://art/construction/军队.png" id="8_noayh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vcyrl"]
+texture = ExtResource("2_vcyrl")
+region_rect = Rect2(405.29953, 153.32231, 725.1294, 672.0239)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8gt7"]
+texture = ExtResource("3_s8gt7")
+expand_margin_left = 30.0
+expand_margin_top = 60.0
+expand_margin_right = 30.0
+expand_margin_bottom = 60.0
+
+[node name="Constructui" type="Control" unique_id=1853020241]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v2k3d")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1391088429]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -358.0
+offset_right = 7.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_vcyrl")
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=245883468]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="Title" type="Label" parent="Panel/VBox" unique_id=159824135]
+layout_mode = 2
+text = "
+建造面板"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBox" unique_id=1762713537]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+
+[node name="buttonsContainer" type="HFlowContainer" parent="Panel/VBox/MarginContainer" unique_id=1325449884]
+layout_mode = 2
+alignment = 1
+
+[node name="CenterButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=925543052]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "行政中心"
+icon = ExtResource("3_xw0ti")
+
+[node name="SubCenterButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=110923045]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "次级中心"
+icon = ExtResource("4_noayh")
+
+[node name="HouseButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=221846157]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "住宅"
+icon = ExtResource("5_yrujd")
+
+[node name="FarmButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=402359201]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "农场"
+icon = ExtResource("5_aiwfy")
+
+[node name="TreeButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=996067144]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "林场"
+icon = ExtResource("6_yrujd")
+
+[node name="MineButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=239401667]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "矿场"
+icon = ExtResource("7_pt4nq")
+
+[node name="BarracksButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=334072518]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "兵营"
+icon = ExtResource("8_noayh")
+
+[node name="PortButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=446183620]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "港口"
+
+[node name="CloseButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=501546474]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "关闭"
+
+[node name="TerrainLabel" type="Label" parent="Panel/VBox" unique_id=4398872]
+unique_name_in_owner = true
+layout_mode = 2
+text = "地形：-"
+horizontal_alignment = 1
+
+[node name="PositionLabel" type="Label" parent="Panel/VBox" unique_id=1523154522]
+unique_name_in_owner = true
+layout_mode = 2
+text = "位置：-"
+horizontal_alignment = 1
+
+[node name="PositionLabel2" type="Label" parent="Panel/VBox" unique_id=1017563699]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="ConstructionDiscription" type="PanelContainer" parent="." unique_id=2144948142]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 350.0
+offset_top = 37.0
+offset_right = 556.0
+offset_bottom = 152.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_s8gt7")
+script = ExtResource("2_jldwo")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ConstructionDiscription" unique_id=289941454]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "jianzhu1
+在此处建设[color=red]农场[/color]
+将要花费[color=red]农场[/color]
+每月产出[color=red]农场[/color]
+预计耗时[color=red]农场[/color]"
+fit_content = true

@@ -1,0 +1,49 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="文明"
+run/main_scene="res://Scenes/main.tscn"
+config/features=PackedStringArray("4.7", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+MapData="*res://Data/MapData.gd"
+PositionCaculater="*uid://d06w7hate0umy"
+EventBus="*uid://63ca0kkrnmto"
+ModifierData="*uid://c6xisyaljl0c6"
+ConstructionData="*uid://b4y12kbamtthx"
+MaterialManager="*uid://iutyxys618im"
+SoiderComponentData="*res://Data/SoiderComponentData.gd"
+SoiderManager="*uid://ddm5atqkiu442"
+DamageCalculator="*uid://ej0rgmeffnfp"
+TeamData="*uid://hoq0fylrw7oo"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[layer_names]
+
+2d_physics/layer_1="bottom"
+2d_physics/layer_2="bullet"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"

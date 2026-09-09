@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dcntw07m2nu83"]
+
+[ext_resource type="Script" uid="uid://b3l1tj1shsxtr" path="res://Scripts/TimeManager.gd" id="1_t1xxb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjxql"]
+bg_color = Color(0.803386, 0.52908903, 0.2946599, 1)
+border_width_left = 3
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.09, 0.09, 1)
+border_blend = true
+shadow_size = 3
+
+[node name="TimeManager" type="Control" unique_id=884157805]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("1_t1xxb")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1620499315]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gjxql")
+
+[node name="TimeProgressBar" type="ProgressBar" parent="PanelContainer" unique_id=1156770282]
+unique_name_in_owner = true
+modulate = Color(0, 1, 0.83333325, 1)
+custom_minimum_size = Vector2(320, 40)
+layout_mode = 2
+value = 40.0
+show_percentage = false

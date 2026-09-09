@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://crcl81hosukgb"]
+
+[ext_resource type="Script" uid="uid://cj1dj4te55yos" path="res://Resource/house/ConstructionResource.gd" id="1_uuwhi"]
+[ext_resource type="Texture2D" uid="uid://busqrk7l1pclj" path="res://art/construction/resident.png" id="2_yvux0"]
+
+[resource]
+script = ExtResource("1_uuwhi")
+time = 5.0
+health = 100.0
+cost_gold = 40.0
+cost_wood = 60.0
+output_gold = 3.0
+texture = ExtResource("2_yvux0")
+metadata/_custom_type_script = "uid://cj1dj4te55yos"

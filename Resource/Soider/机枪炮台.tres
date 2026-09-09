@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SoiderTopResource" format=3 uid="uid://q6spwt2vn4hm"]
+
+[ext_resource type="Script" uid="uid://diqbgbo4sy5ri" path="res://Resource/Soider/SoiderTopResource.gd" id="1_3rpkk"]
+[ext_resource type="Texture2D" uid="uid://lcnatkdj7hgh" path="res://art/soidler/机枪炮台.png" id="2_yn0a6"]
+
+[resource]
+script = ExtResource("1_3rpkk")
+display_name = "机枪炮台"
+attack = 200.0
+attack_range = 100.0
+attack_coolingdown = 1.0
+top_texture = ExtResource("2_yn0a6")
+metadata/_custom_type_script = "uid://diqbgbo4sy5ri"

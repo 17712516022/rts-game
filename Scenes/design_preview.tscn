@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://bftlw47i5p5h0"]
+
+[ext_resource type="Script" uid="uid://bhcso2te85smh" path="res://Scripts/Design/DesignPreviewer.gd" id="1_ngx11"]
+[ext_resource type="Texture2D" uid="uid://dcsojrckktc83" path="res://art/soidler/普通底盘.png" id="2_cn35j"]
+[ext_resource type="Texture2D" uid="uid://b2rouk8cn5mfw" path="res://art/soidler/激光炮台.png" id="3_ngx11"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsog4"]
+bg_color = Color(0.5186205, 0.5857312, 0.8380095, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.49995834, 0.8548572, 0.99999994, 1)
+border_blend = true
+shadow_size = 5
+
+[sub_resource type="Animation" id="Animation_qsog4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SoiderTextureMarginContainer/Slots/main:offset_transform_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_od3lk"]
+resource_name = "主炮动画"
+length = 11.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SoiderTextureMarginContainer/Slots/main:offset_transform_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3, 5, 7, 9, 10, 11),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.43633232, 0.43633232, 0.0, 0.0, -0.38397244, -0.38397244, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gxhjq"]
+_data = {
+&"RESET": SubResource("Animation_qsog4"),
+&"主炮动画": SubResource("Animation_od3lk")
+}
+
+[node name="DesignPreview" type="VBoxContainer" unique_id=969256717]
+script = ExtResource("1_ngx11")
+
+[node name="SoiderTextureMarginContainer" type="MarginContainer" parent="." unique_id=945423831]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="TextureBottom" type="TextureRect" parent="SoiderTextureMarginContainer" unique_id=1551821171]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(2, 2)
+texture = ExtResource("2_cn35j")
+stretch_mode = 5
+
+[node name="Slots" type="Control" parent="SoiderTextureMarginContainer" unique_id=1807385723]
+layout_mode = 2
+
+[node name="main" type="TextureButton" parent="SoiderTextureMarginContainer/Slots" unique_id=110265023]
+unique_name_in_owner = true
+modulate = Color(1, 0.32999998, 0.32999998, 1)
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 200.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(-100, 4)
+offset_transform_scale = Vector2(0.7, 0.7)
+offset_transform_pivot = Vector2(100, 0)
+texture_normal = ExtResource("3_ngx11")
+stretch_mode = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=990368504]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qsog4")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1247876807]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="AttributeLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer" unique_id=22949847]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 150)
+custom_maximum_size = Vector2(-1, 160)
+layout_mode = 2
+bbcode_enabled = true
+text = "选择炮台和底盘，预览组合属性"
+fit_content = true
+
+[node name="DesignPreviewAnimationPlayer" type="AnimationPlayer" parent="." unique_id=498342591]
+libraries/ = SubResource("AnimationLibrary_gxhjq")
+autoplay = &"主炮动画"

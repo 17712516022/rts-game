@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SoiderBottomResource" format=3 uid="uid://bqqpr2ir4cxt1"]
+
+[ext_resource type="Texture2D" uid="uid://cpx2v34a6lv2c" path="res://art/soidler/高级.png" id="1_wknol"]
+[ext_resource type="Script" uid="uid://77ro2kq2eurs" path="res://Resource/Soider/SoiderBottomResource.gd" id="1_x45la"]
+
+[resource]
+script = ExtResource("1_x45la")
+display_name = "高级底盘"
+max_health = 2000.0
+speed = 300.0
+defense = 100.0
+turret_slot_offsets = Array[Vector2]([Vector2(0, 0)])
+bottom_texture = ExtResource("1_wknol")
+metadata/_custom_type_script = "uid://77ro2kq2eurs"

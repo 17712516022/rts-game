@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://d11nbd5jty7yf"]
+
+[ext_resource type="Script" uid="uid://cngcd1ikpv7gc" path="res://Scripts/gamematerial/materialui.gd" id="1_jpn22"]
+[ext_resource type="Texture2D" uid="uid://drxi7uky7qdem" path="res://art/gold.png" id="2_mr7s4"]
+[ext_resource type="Texture2D" uid="uid://boif3s5ow7l85" path="res://art/wood.png" id="3_pbpk7"]
+[ext_resource type="Texture2D" uid="uid://drnblbiqlfoy1" path="res://art/mine.png" id="4_5aq7s"]
+[ext_resource type="Texture2D" uid="uid://ccl28xq7p1rr" path="res://art/food.png" id="4_dsbcs"]
+[ext_resource type="Texture2D" uid="uid://ctkxygtyysdsi" path="res://art/population.png" id="6_5aq7s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_co6qv"]
+bg_color = Color(0.22, 0.09845, 0.032999996, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.59, 0.34416667, 0, 1)
+border_blend = true
+shadow_size = 7
+
+[node name="MaterialUi" type="Control" unique_id=1796961793]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_jpn22")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=496642714]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_co6qv")
+
+[node name="MarginlContainer" type="MarginContainer" parent="PanelContainer" unique_id=1890707347]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/margin_left = 12
+
+[node name="materialContainer" type="HBoxContainer" parent="PanelContainer/MarginlContainer" unique_id=1624952310]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="GoldContainer" type="HBoxContainer" parent="PanelContainer/MarginlContainer/materialContainer" unique_id=167705210]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = -12
+
+[node name="GoldTextureRect" type="TextureRect" parent="PanelContainer/MarginlContainer/materialContainer/GoldContainer" unique_id=1341135241]
+custom_minimum_size = Vector2(40, 40)
+custom_maximum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mr7s4")
+
+[node name="GoldLabel" type="Label" parent="PanelContainer/MarginlContainer/materialContainer/GoldContainer" unique_id=1639567943]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "1800"
+horizontal_alignment = 1
+
+[node name="WoodContainer" type="HBoxContainer" parent="PanelContainer/MarginlContainer/materialContainer" unique_id=1944345792]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = -12
+
+[node name="WoodTextureRect" type="TextureRect" parent="PanelContainer/MarginlContainer/materialContainer/WoodContainer" unique_id=265495793]
+custom_minimum_size = Vector2(40, 40)
+custom_maximum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_pbpk7")
+
+[node name="WoodLabel" type="Label" parent="PanelContainer/MarginlContainer/materialContainer/WoodContainer" unique_id=2117929497]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "1800"
+horizontal_alignment = 1
+
+[node name="MineContainer3" type="HBoxContainer" parent="PanelContainer/MarginlContainer/materialContainer" unique_id=1477135801]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = -12
+
+[node name="MineTextureRect" type="TextureRect" parent="PanelContainer/MarginlContainer/materialContainer/MineContainer3" unique_id=533426850]
+custom_minimum_size = Vector2(40, 40)
+custom_maximum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_5aq7s")
+
+[node name="MineLabel" type="Label" parent="PanelContainer/MarginlContainer/materialContainer/MineContainer3" unique_id=533149389]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "1800"
+horizontal_alignment = 1
+
+[node name="FoodContainer4" type="HBoxContainer" parent="PanelContainer/MarginlContainer/materialContainer" unique_id=85714685]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = -12
+
+[node name="FoodTextureRect" type="TextureRect" parent="PanelContainer/MarginlContainer/materialContainer/FoodContainer4" unique_id=85639305]
+custom_minimum_size = Vector2(40, 40)
+custom_maximum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_dsbcs")
+
+[node name="FoodLabel" type="Label" parent="PanelContainer/MarginlContainer/materialContainer/FoodContainer4" unique_id=1912087319]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "1800"
+horizontal_alignment = 1
+
+[node name="PopularionContainer5" type="HBoxContainer" parent="PanelContainer/MarginlContainer/materialContainer" unique_id=1830126551]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = -12
+
+[node name="PopulationTextureRect" type="TextureRect" parent="PanelContainer/MarginlContainer/materialContainer/PopularionContainer5" unique_id=1001497916]
+custom_minimum_size = Vector2(40, 40)
+custom_maximum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_5aq7s")
+
+[node name="PopulationLabel" type="Label" parent="PanelContainer/MarginlContainer/materialContainer/PopularionContainer5" unique_id=1211727765]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "1800"
+horizontal_alignment = 1

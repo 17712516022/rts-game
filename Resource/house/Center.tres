@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://d33oguhax5wix"]
+
+[ext_resource type="Script" uid="uid://cj1dj4te55yos" path="res://Resource/house/ConstructionResource.gd" id="1_nj60j"]
+[ext_resource type="Texture2D" uid="uid://bdhslhs0k0xp2" path="res://art/construction/center.png" id="2_qmnte"]
+
+[resource]
+script = ExtResource("1_nj60j")
+name = "行政中心"
+time = 5.0
+health = 10.0
+cost_gold = 100.0
+texture = ExtResource("2_qmnte")
+metadata/_custom_type_script = "uid://cj1dj4te55yos"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://bl6t5ravjoo7k"]
+
+[ext_resource type="Script" uid="uid://cj1dj4te55yos" path="res://Resource/house/ConstructionResource.gd" id="1_40hwo"]
+[ext_resource type="Texture2D" uid="uid://dnlf1wwcwoigl" path="res://art/construction/军队.png" id="2_svdr3"]
+
+[resource]
+script = ExtResource("1_40hwo")
+time = 5.0
+health = 100.0
+cost_gold = 80.0
+cost_wood = 60.0
+cost_mine = 20.0
+output_mine = 2.0
+texture = ExtResource("2_svdr3")
+metadata/_custom_type_script = "uid://cj1dj4te55yos"

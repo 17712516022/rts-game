@@ -1,0 +1,199 @@
+[gd_scene format=3 uid="uid://c1bss63p0trf3"]
+
+[ext_resource type="Script" uid="uid://ft1gc87u75e1" path="res://Scripts/Design/DesignPanelUi.gd" id="1_p6j36"]
+[ext_resource type="Texture2D" uid="uid://7lsgg432isqc" path="res://art/设计.png" id="2_4ug7b"]
+[ext_resource type="PackedScene" uid="uid://bftlw47i5p5h0" path="res://Scenes/design_preview.tscn" id="3_pv"]
+[ext_resource type="Script" uid="uid://c5i40050bpj8i" path="res://Scripts/Design/SavedDesign.gd" id="4_sd"]
+[ext_resource type="Texture2D" uid="uid://d0qxgfkicp4w2" path="res://art/确定部署.png" id="5_1p1od"]
+[ext_resource type="StyleBox" uid="uid://i0sme1d53uns" path="res://theme/按钮/按钮.tres" id="5_v0llw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqlfj"]
+bg_color = Color(1.92523e-06, 0.644407, 0.6762373, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0.63494486, 0.98164135, 1)
+border_blend = true
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6j36"]
+bg_color = Color(0.7459317, 0.6038145, 0.23392218, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6576698, 0.8928806, 2.695322e-06, 1)
+border_blend = true
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wasqr"]
+bg_color = Color(0.48613375, 0.61924237, 0.72181493, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.23377779, 0.8906484, 1, 1)
+border_blend = true
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngx11"]
+bg_color = Color(1, 0.9856667, 0.57, 1)
+border_width_left = 3
+border_width_top = 4
+border_width_right = 3
+border_width_bottom = 4
+border_blend = true
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_od3lk"]
+bg_color = Color(0.7616978, 0.552236, 0.328853, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+shadow_size = 3
+
+[sub_resource type="Gradient" id="Gradient_4ug7b"]
+colors = PackedColorArray(6.0644747e-06, 0.6574994, 0.24633095, 1, 0.6775668, 0.6775668, 0.6775668, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1p1od"]
+gradient = SubResource("Gradient_4ug7b")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ug7b"]
+texture = SubResource("GradientTexture2D_1p1od")
+
+[sub_resource type="Gradient" id="Gradient_1p1od"]
+colors = PackedColorArray(0.8256812, 0.11578495, 0, 1, 0.33660764, 0.3366076, 0.3366076, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1klxf"]
+gradient = SubResource("Gradient_1p1od")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q4wr1"]
+texture = SubResource("GradientTexture2D_1klxf")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v0llw"]
+bg_color = Color(0.8594444, 0.8839878, 0.66709894, 1)
+border_width_left = 4
+border_width_top = 2
+border_width_right = 4
+border_width_bottom = 4
+border_blend = true
+
+[node name="DesignPanel" type="Control" unique_id=1093799930]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -204.0
+offset_right = -300.0
+offset_bottom = -204.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p6j36")
+
+[node name="DesignPanelContainer" type="PanelContainer" parent="." unique_id=1023994241]
+layout_mode = 0
+offset_right = 306.0
+offset_bottom = 320.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_aqlfj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DesignPanelContainer" unique_id=1725559988]
+layout_mode = 2
+
+[node name="DesignLabel" type="Label" parent="DesignPanelContainer/VBoxContainer" unique_id=455520965]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "设计面板"
+horizontal_alignment = 1
+
+[node name="Tabs" type="TabContainer" parent="DesignPanelContainer/VBoxContainer" unique_id=1607084434]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/side_margin = 8
+theme_override_font_sizes/font_size = 18
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_p6j36")
+tab_alignment = 1
+current_tab = 0
+tab_0/icon = ExtResource("2_4ug7b")
+tab_1/title = "保存的设计"
+
+[node name="设计" type="PanelContainer" parent="DesignPanelContainer/VBoxContainer/Tabs" unique_id=1707084435]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wasqr")
+metadata/_tab_index = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DesignPanelContainer/VBoxContainer/Tabs/设计" unique_id=1683201002]
+layout_mode = 2
+
+[node name="DesignPreview" parent="DesignPanelContainer/VBoxContainer/Tabs/设计/HBoxContainer" unique_id=1325503538 instance=ExtResource("3_pv")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="optionsContainer" type="VBoxContainer" parent="DesignPanelContainer/VBoxContainer/Tabs/设计/HBoxContainer" unique_id=522048848]
+layout_mode = 2
+
+[node name="TopItemList" type="ItemList" parent="DesignPanelContainer/VBoxContainer/Tabs/设计/HBoxContainer/optionsContainer" unique_id=1631316966]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ngx11")
+allow_reselect = true
+item_count = 1
+
+[node name="BottomItemList" type="ItemList" parent="DesignPanelContainer/VBoxContainer/Tabs/设计/HBoxContainer/optionsContainer" unique_id=384171878]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.60333335, 1, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_od3lk")
+allow_reselect = true
+
+[node name="SaveDesign" type="Button" parent="DesignPanelContainer/VBoxContainer/Tabs/设计/HBoxContainer/optionsContainer" unique_id=593624388]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ug7b")
+text = "保存"
+
+[node name="quitDesign" type="Button" parent="DesignPanelContainer/VBoxContainer/Tabs/设计/HBoxContainer/optionsContainer" unique_id=1801103023]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_q4wr1")
+text = "退出编辑"
+
+[node name="SavedDesign" type="PanelContainer" parent="DesignPanelContainer/VBoxContainer/Tabs" unique_id=1707084436]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(582, 400)
+custom_maximum_size = Vector2(582, 400)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wasqr")
+script = ExtResource("4_sd")
+metadata/_tab_index = 1
+metadata/_tab_name = "保存的设计"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DesignPanelContainer/VBoxContainer/Tabs/SavedDesign" unique_id=367319146]
+layout_mode = 2
+
+[node name="SavedList" type="ItemList" parent="DesignPanelContainer/VBoxContainer/Tabs/SavedDesign/VBoxContainer" unique_id=1707084437]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 360)
+custom_maximum_size = Vector2(-1, 360)
+layout_mode = 2
+allow_reselect = true
+
+[node name="selectbutton" type="Button" parent="DesignPanelContainer/VBoxContainer/Tabs/SavedDesign/VBoxContainer" unique_id=552600651]
+custom_maximum_size = Vector2(150, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = ExtResource("5_v0llw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v0llw")
+text = "确定部署  "
+icon = ExtResource("5_1p1od")

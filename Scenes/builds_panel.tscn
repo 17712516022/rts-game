@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://d0ssk8h8ovl4b"]
+
+[ext_resource type="Script" uid="uid://ds345sgc3ijlc" path="res://Scripts/BuildsPanel.gd" id="1_5sqg4"]
+[ext_resource type="Texture2D" uid="uid://ddbkqyls83gmm" path="res://art/Empty_building_information_pan_2026-08-29T07-23-29.png" id="2_bnt2g"]
+[ext_resource type="Texture2D" uid="uid://bkgn4pkoles5f" path="res://art/construction/farm.png" id="3_bnt2g"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ul0m8"]
+texture = ExtResource("2_bnt2g")
+expand_margin_left = 30.0
+expand_margin_top = 50.0
+expand_margin_right = 30.0
+expand_margin_bottom = 60.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fg1fk"]
+bg_color = Color(0.63552904, 0.3693394, 0.17841005, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.35068944, 0.21296158, 0.12759542, 1)
+border_blend = true
+shadow_size = 2
+
+[sub_resource type="Theme" id="Theme_5aq7s"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_fg1fk")
+
+[sub_resource type="Gradient" id="Gradient_1krex"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0.33175027, 0.26607275, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gjxql"]
+gradient = SubResource("Gradient_1krex")
+
+[sub_resource type="Gradient" id="Gradient_qmfst"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yddip"]
+gradient = SubResource("Gradient_qmfst")
+
+[sub_resource type="Gradient" id="Gradient_hg6dg"]
+offsets = PackedFloat32Array(0, 0.98697066)
+colors = PackedColorArray(0, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_co6qv"]
+gradient = SubResource("Gradient_hg6dg")
+
+[node name="BuildsPanel" type="Control" unique_id=1360356493]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_5sqg4")
+
+[node name="buildspanel" type="PanelContainer" parent="." unique_id=90175349]
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -320.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_ul0m8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="buildspanel" unique_id=421883501]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="BuildTexture" type="TextureRect" parent="buildspanel/VBoxContainer" unique_id=1339720699]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 16)
+texture = ExtResource("3_bnt2g")
+expand_mode = 5
+
+[node name="BuildhealthProgressBar" type="TextureProgressBar" parent="buildspanel/VBoxContainer" unique_id=1305098628]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 20)
+custom_maximum_size = Vector2(-1, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+theme = SubResource("Theme_5aq7s")
+value = 40.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_gjxql")
+texture_over = SubResource("GradientTexture2D_yddip")
+texture_progress = SubResource("GradientTexture2D_co6qv")
+
+[node name="MarginContainer" type="MarginContainer" parent="buildspanel/VBoxContainer" unique_id=95269945]
+layout_mode = 2
+theme_override_constants/margin_left = 26
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 26
+
+[node name="HBoxContainer" type="HBoxContainer" parent="buildspanel/VBoxContainer/MarginContainer" unique_id=1918979824]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer" unique_id=800585944]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BuildTextLabel" type="RichTextLabel" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1389284340]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 100)
+custom_maximum_size = Vector2(160, -1)
+layout_mode = 2
+text = "双缝干涉看过2更深刻福建省高科技返回给gfjhjfjftkjfkuf"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer" unique_id=955462417]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Upgrade" type="Button" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=851844946]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "升级"
+
+[node name="block" type="Button" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=653821487]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+text = "拆除"

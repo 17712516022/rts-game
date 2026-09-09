@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://cf1hhxii2pui0"]
+
+[ext_resource type="Script" uid="uid://cc16xabg312uj" path="res://Scripts/Soider/soiderbottom.gd" id="1_vqmh8"]
+[ext_resource type="Texture2D" uid="uid://cpx2v34a6lv2c" path="res://art/soidler/高级.png" id="2_f1u4v"]
+[ext_resource type="Script" uid="uid://bksd3x4mj2hgm" path="res://Scripts/Soider/Mover.gd" id="3_5uskx"]
+[ext_resource type="Script" uid="uid://bqhp1wdqcuuki" path="res://Scripts/Soider/soidertop.gd" id="5_top"]
+[ext_resource type="Texture2D" uid="uid://b2rouk8cn5mfw" path="res://art/soidler/激光炮台.png" id="6_o1m7i"]
+[ext_resource type="Script" uid="uid://c8tbe44edqt5c" path="res://Scripts/soidercontrol/SoiderInteract.gd" id="7_do08p"]
+[ext_resource type="Script" uid="uid://d4ca3giat4yrb" path="res://Scripts/bullets/BulletSpawner.gd" id="8_f1u4v"]
+[ext_resource type="Script" uid="uid://2orveb5fuh06" path="res://Scripts/Soider/PathFinder.gd" id="8_s6ttd"]
+[ext_resource type="Texture2D" uid="uid://dn0o5hd0josta" path="res://art/尾气.png" id="9_xs3ir"]
+[ext_resource type="Script" uid="uid://dgsblt5xqe6xs" path="res://Scripts/bullets/BulletsCreater.gd" id="10_4uyl7"]
+[ext_resource type="Script" uid="uid://8fdmp3amwegr" path="res://Scripts/Squad.gd" id="12_w1t8d"]
+
+[sub_resource type="Gradient" id="Gradient_f1u4v"]
+colors = PackedColorArray(0.58234346, 0.12651062, 0.15669426, 1, 0.9999142, 0.4420154, 0.3897652, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_co6qv"]
+gradient = SubResource("Gradient_f1u4v")
+
+[sub_resource type="Gradient" id="Gradient_w1t8d"]
+colors = PackedColorArray(0.26713353, 0.55353224, 0.29680556, 1, 0, 0.92432344, 0.4866619, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vkqoe"]
+gradient = SubResource("Gradient_w1t8d")
+
+[sub_resource type="Gradient" id="Gradient_4uyl7"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qkxii"]
+gradient = SubResource("Gradient_4uyl7")
+
+[sub_resource type="Curve" id="Curve_f1u4v"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.7474748, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_e28o1"]
+curve = SubResource("Curve_f1u4v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yddip"]
+particle_flag_disable_z = true
+angle_min = -149.99998
+angle_max = 150.00002
+spread = 10.0
+initial_velocity_min = -57.0
+initial_velocity_max = -42.0
+scale_min = 0.5
+scale_max = 0.79999995
+scale_curve = SubResource("CurveTexture_e28o1")
+color_ramp = SubResource("GradientTexture1D_qkxii")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1m7i"]
+size = Vector2(44, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xs3ir"]
+radius = 82.1523
+
+[node name="Soiderbotton" type="CharacterBody2D" unique_id=1728593908]
+z_index = 2
+input_pickable = true
+motion_mode = 1
+script = ExtResource("1_vqmh8")
+
+[node name="healthProgressBar" type="TextureProgressBar" parent="." unique_id=1093770917]
+unique_name_in_owner = true
+offset_left = -20.0
+offset_top = 30.0
+offset_right = 20.0
+offset_bottom = 34.0
+value = 33.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_co6qv")
+texture_progress = SubResource("GradientTexture2D_vkqoe")
+
+[node name="Soiderbottontexture" type="Sprite2D" parent="." unique_id=1328510551]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+texture = ExtResource("2_f1u4v")
+flip_h = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Soiderbottontexture" unique_id=163464906]
+position = Vector2(-8.5, 0)
+scale = Vector2(0.5, 0.5)
+amount = 40
+texture = ExtResource("9_xs3ir")
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_yddip")
+
+[node name="hurtbox" type="Area2D" parent="Soiderbottontexture" unique_id=1407062066]
+unique_name_in_owner = true
+scale = Vector2(0.5, 0.5)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Soiderbottontexture/hurtbox" unique_id=351156304]
+shape = SubResource("RectangleShape2D_o1m7i")
+
+[node name="Mover" type="Node" parent="." unique_id=1893456001]
+unique_name_in_owner = true
+script = ExtResource("3_5uskx")
+
+[node name="Turret_0" type="Node2D" parent="." unique_id=2100000001]
+script = ExtResource("5_top")
+
+[node name="Soidertoptexture" type="Sprite2D" parent="Turret_0" unique_id=2100000002]
+modulate = Color(1, 0.26999998, 0.26999998, 1)
+position = Vector2(12, 1)
+scale = Vector2(3, 1.6)
+texture = ExtResource("6_o1m7i")
+flip_h = true
+
+[node name="Hitbox" type="Area2D" parent="Turret_0" unique_id=2100000003]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turret_0/Hitbox" unique_id=2100000004]
+shape = SubResource("CircleShape2D_xs3ir")
+
+[node name="BulletSpawner" type="Marker2D" parent="Turret_0" unique_id=155095150]
+position = Vector2(34, 0)
+script = ExtResource("8_f1u4v")
+
+[node name="InteractSoider" type="Node2D" parent="." unique_id=330490209]
+script = ExtResource("7_do08p")
+
+[node name="PathFinder" type="Node" parent="." unique_id=1419978981]
+unique_name_in_owner = true
+script = ExtResource("8_s6ttd")
+metadata/_custom_type_script = "uid://2orveb5fuh06"
+
+[node name="BulletsPool" type="Node" parent="." unique_id=344272958]
+unique_name_in_owner = true
+script = ExtResource("10_4uyl7")
+metadata/_custom_type_script = "uid://dgsblt5xqe6xs"
+
+[node name="Squad" type="Node" parent="." unique_id=604910556]
+script = ExtResource("12_w1t8d")
+metadata/_custom_type_script = "uid://8fdmp3amwegr"

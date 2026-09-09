@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://chgx8hexma1p1"]
+
+[ext_resource type="Script" uid="uid://cxddmbuj32sdx" path="res://Scripts/Map.gd" id="1_8gbba"]
+[ext_resource type="Script" uid="uid://fyqnqmenb367" path="res://Scripts/generatemap/ElevationGenerater.gd" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://dkg3p4f4kk84e" path="res://Scripts/Camera.gd" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://d4li5u3qnv8t1" path="res://Scripts/generatemap/WeatherGenerater.gd" id="3_21xkr"]
+[ext_resource type="Script" uid="uid://divwjqnuqs2om" path="res://Scripts/HighLighter.gd" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://c0orya0a8bumu" path="res://Scripts/generatemap/RiverGenerater.gd" id="5_0rqxg"]
+[ext_resource type="Script" uid="uid://dptwq8a0mwdc6" path="res://Scripts/generatemap/MapGenerater.gd" id="6_xht2m"]
+[ext_resource type="PackedScene" uid="uid://bt4w7ajb41b5j" path="res://Scenes/ui.tscn" id="8_ynf5e"]
+[ext_resource type="Script" uid="uid://n8akeg55j2df" path="res://Scripts/spawnsoider/SoiderSpawener.gd" id="11_spawner"]
+[ext_resource type="Script" uid="uid://cc2sw5hdsi1hy" path="res://Scripts/gamematerial/MonthlyMaterialCalculator.gd" id="12_popcalc"]
+[ext_resource type="Script" uid="uid://ctbgf78qx3i6k" path="res://Scripts/construction/PolicyHighLighter.gd" id="13_policy"]
+[ext_resource type="Script" uid="uid://cmco6m21tk2qd" path="res://Scripts/construction/CenterOwnershipManager.gd" id="14_owner_mgr"]
+[ext_resource type="Script" uid="uid://brwcbmy37yq1r" path="res://Scripts/GameBootstrap.gd" id="15_bootstrap"]
+[ext_resource type="Script" uid="uid://dmo4x04ymw75y" path="res://Scripts/VFXManager.gd" id="16_pp"]
+
+[sub_resource type="Curve" id="Curve_jkdf5"]
+_data = [Vector2(0, 0.50209206), 0.0, 0.0, 0, 0, Vector2(0.49866667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.50209206), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Map" type="Node2D" unique_id=1351810404]
+script = ExtResource("1_8gbba")
+
+[node name="GameBootstrap" type="Node" parent="." unique_id=910000001]
+script = ExtResource("15_bootstrap")
+
+[node name="mapgenerate" type="Node" parent="." unique_id=387677815]
+
+[node name="ElevationGenerater" type="Node" parent="mapgenerate" unique_id=694554978]
+script = ExtResource("1_jjgbg")
+metadata/_custom_type_script = "uid://fyqnqmenb367"
+
+[node name="WeatherGenerater" type="Node" parent="mapgenerate" unique_id=520909020]
+script = ExtResource("3_21xkr")
+metadata/_custom_type_script = "uid://d4li5u3qnv8t1"
+
+[node name="RiverGenerater" type="Node" parent="mapgenerate" unique_id=847875391]
+script = ExtResource("5_0rqxg")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=146168937]
+editor_draw_limits = true
+script = ExtResource("2_bo1nx")
+
+[node name="MapMesh" type="MeshInstance2D" parent="." unique_id=940215109]
+unique_name_in_owner = true
+script = ExtResource("6_xht2m")
+
+[node name="HighLighter" type="Polygon2D" parent="." unique_id=4724381]
+z_index = 1
+color = Color(1, 1, 0, 0.50980395)
+script = ExtResource("4_jjvhh")
+
+[node name="ui" parent="." unique_id=1395313548 instance=ExtResource("8_ynf5e")]
+
+[node name="SoiderSpawner" type="Node" parent="." unique_id=1100000003]
+script = ExtResource("11_spawner")
+
+[node name="MonthlyMaterialCalculator" type="Node" parent="." unique_id=1100000004]
+script = ExtResource("12_popcalc")
+
+[node name="PolicyHighLighter" type="Node2D" parent="." unique_id=309192501]
+script = ExtResource("13_policy")
+
+[node name="CenterOwnershipManager" type="Node" parent="." unique_id=700000001]
+script = ExtResource("14_owner_mgr")
+
+[node name="Container" type="Node2D" parent="." unique_id=1851132072]
+
+[node name="ConstrutionContainer" type="Node2D" parent="Container" unique_id=2038126240]
+unique_name_in_owner = true
+
+[node name="SoiderContainer" type="Node2D" parent="Container" unique_id=1100000001]
+unique_name_in_owner = true
+
+[node name="VFXManager" type="Node2D" parent="." unique_id=1600000001]
+z_index = 2
+script = ExtResource("16_pp")
+
+[node name="PathLine" type="Line2D" parent="VFXManager" unique_id=1600000002]
+unique_name_in_owner = true
+visible = false
+width = 6.0
+width_curve = SubResource("Curve_jkdf5")
+default_color = Color(0.9, 0.396, 0.396, 0.9019608)
+antialiased = true

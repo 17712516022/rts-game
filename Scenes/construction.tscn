@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://c6acxf8c8rmn2"]
+
+[ext_resource type="Script" uid="uid://bho87kkok67sm" path="res://Scripts/construction/Construction.gd" id="1_y71ls"]
+[ext_resource type="Texture2D" uid="uid://bkgn4pkoles5f" path="res://art/construction/farm.png" id="2_0cygl"]
+[ext_resource type="Script" uid="uid://bt0033xwyq72x" path="res://Scripts/construction/BuilderAnimation.gd" id="2_ebg2o"]
+[ext_resource type="Script" uid="uid://drq8kdfk8rxru" path="res://Scripts/construction/OutputProductor.gd" id="3_gqkhe"]
+[ext_resource type="Script" uid="uid://cry371sok85qo" path="res://Scripts/floatlabel/FloatingLabelPool.gd" id="6_8h60d"]
+[ext_resource type="Texture2D" uid="uid://c2rxexqw6viqf" path="res://art/Simple_minimal_empty_circular__2026-08-24T12-17-06.png" id="6_77al2"]
+[ext_resource type="Script" uid="uid://8fdmp3amwegr" path="res://Scripts/Squad.gd" id="7_77al2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k3ob4"]
+radius = 27.018513
+
+[node name="Construction" type="StaticBody2D" unique_id=1355733452]
+collision_mask = 0
+script = ExtResource("1_y71ls")
+
+[node name="ConstructionTexture" type="Sprite2D" parent="." unique_id=576575286]
+unique_name_in_owner = true
+z_index = 2
+scale = Vector2(2, 2)
+texture = ExtResource("2_0cygl")
+
+[node name="ConstructionHurtBox" type="Area2D" parent="." unique_id=1019872517]
+unique_name_in_owner = true
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConstructionHurtBox" unique_id=172636629]
+shape = SubResource("CircleShape2D_k3ob4")
+
+[node name="BuilderAnimation" type="Node" parent="." unique_id=223452037]
+unique_name_in_owner = true
+script = ExtResource("2_ebg2o")
+
+[node name="OutputProductor" type="Node" parent="." unique_id=398412365]
+unique_name_in_owner = true
+script = ExtResource("3_gqkhe")
+
+[node name="ConstructionProgressBar" type="TextureProgressBar" parent="." unique_id=482173950]
+unique_name_in_owner = true
+offset_left = -13.0
+offset_top = 20.999996
+offset_right = 1011.0
+offset_bottom = 1045.0
+scale = Vector2(0.025, 0.025)
+fill_mode = 4
+texture_progress = ExtResource("6_77al2")
+
+[node name="FloatingLabelPool" type="Node" parent="." unique_id=78173524]
+unique_name_in_owner = true
+script = ExtResource("6_8h60d")
+metadata/_custom_type_script = "uid://cry371sok85qo"
+
+[node name="Squad" type="Node" parent="." unique_id=1011269673]
+script = ExtResource("7_77al2")
+metadata/_custom_type_script = "uid://8fdmp3amwegr"

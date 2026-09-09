@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://1jw8lf8dcdl"]
+
+[ext_resource type="Script" uid="uid://cj1dj4te55yos" path="res://Resource/house/ConstructionResource.gd" id="1_fmu0k"]
+[ext_resource type="Texture2D" uid="uid://bkgn4pkoles5f" path="res://art/construction/farm.png" id="2_16kkv"]
+
+[resource]
+script = ExtResource("1_fmu0k")
+time = 5.0
+health = 100.0
+cost_gold = 30.0
+cost_wood = 20.0
+output_food = 8.0
+texture = ExtResource("2_16kkv")
+metadata/_custom_type_script = "uid://cj1dj4te55yos"

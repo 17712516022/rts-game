@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://bvbki7ougpl2e"]
+
+[ext_resource type="Script" uid="uid://cj1dj4te55yos" path="res://Resource/house/ConstructionResource.gd" id="1_k3ob4"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k3ob4"]
+load_path = "res://.godot/imported/mineplace.png-5471504c09f4b570c1bc2ea255563442.ctex"
+
+[resource]
+script = ExtResource("1_k3ob4")
+time = 5.0
+health = 100.0
+cost_gold = 40.0
+cost_wood = 30.0
+output_mine = 8.0
+texture = SubResource("CompressedTexture2D_k3ob4")
+metadata/_custom_type_script = "uid://cj1dj4te55yos"

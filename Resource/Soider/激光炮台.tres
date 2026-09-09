@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SoiderTopResource" format=3 uid="uid://ucgswwyt4hxn"]
+
+[ext_resource type="Script" uid="uid://diqbgbo4sy5ri" path="res://Resource/Soider/SoiderTopResource.gd" id="1_m3a30"]
+[ext_resource type="Texture2D" uid="uid://b2rouk8cn5mfw" path="res://art/soidler/激光炮台.png" id="2_cldsn"]
+
+[resource]
+script = ExtResource("1_m3a30")
+display_name = "激光炮台"
+attack = 200.0
+attack_range = 300.0
+attack_coolingdown = 2.0
+top_texture = ExtResource("2_cldsn")
+metadata/_custom_type_script = "uid://diqbgbo4sy5ri"

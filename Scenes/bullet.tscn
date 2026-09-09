@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://qw4t8tq0aitv"]
+
+[ext_resource type="Script" uid="uid://dxpl07jk71fxq" path="res://Scripts/bullets/Bullet.gd" id="1_oduel"]
+[ext_resource type="Texture2D" uid="uid://ds3r030hr8oai" path="res://art/soidler/bullet/子弹.png" id="1_xjght"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vkqoe"]
+radius = 3.0
+
+[node name="bullet" type="CharacterBody2D" unique_id=2089254847]
+z_index = 2
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_oduel")
+
+[node name="BulletSprite2D" type="Sprite2D" parent="." unique_id=1140440887]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xjght")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1900598715]
+shape = SubResource("CircleShape2D_vkqoe")

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bt4w7ajb41b5j"]
+
+[ext_resource type="PackedScene" uid="uid://cerbsq8dq4afw" path="res://Scenes/constructui.tscn" id="1_jxero"]
+[ext_resource type="Script" uid="uid://ceglxuitep1f0" path="res://Scripts/ui.gd" id="1_m78vo"]
+[ext_resource type="PackedScene" uid="uid://d11nbd5jty7yf" path="res://Scenes/material_ui.tscn" id="2_qdvrb"]
+[ext_resource type="PackedScene" uid="uid://d0ssk8h8ovl4b" path="res://Scenes/builds_panel.tscn" id="3_nf4gj"]
+[ext_resource type="PackedScene" uid="uid://dcntw07m2nu83" path="res://Scenes/time_ui.tscn" id="4_2246s"]
+[ext_resource type="PackedScene" uid="uid://c1bss63p0trf3" path="res://Scenes/design_panel.tscn" id="6_smcll"]
+[ext_resource type="PackedScene" uid="uid://c5cy1842ef64n" path="res://Scenes/soider_ui.tscn" id="7_smcll"]
+
+[node name="ui" type="CanvasLayer" unique_id=1395313548]
+script = ExtResource("1_m78vo")
+
+[node name="Constructui" parent="." unique_id=1853020241 instance=ExtResource("1_jxero")]
+unique_name_in_owner = true
+mouse_filter = 2
+
+[node name="MaterialUi" parent="." unique_id=1796961793 instance=ExtResource("2_qdvrb")]
+
+[node name="BuildsPanel" parent="." unique_id=1360356493 instance=ExtResource("3_nf4gj")]
+
+[node name="TimeManager" parent="." unique_id=884157805 instance=ExtResource("4_2246s")]
+
+[node name="DesignPanel" parent="." unique_id=1093799930 instance=ExtResource("6_smcll")]
+
+[node name="SoiderUi" parent="." unique_id=330512019 instance=ExtResource("7_smcll")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+grow_vertical = 1
