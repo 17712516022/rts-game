@@ -11,6 +11,6 @@ func tick(_ctx : Dictionary ) -> int:
 	for i in children:
 		var result : int = i.tick(_ctx)
 		if result != Status.SUCCESS :
-			return Status.FALIURE
+			return result
 			
 	return Status.SUCCESS

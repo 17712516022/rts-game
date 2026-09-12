@@ -25,14 +25,17 @@ func _ready() -> void:
 	design_preview.start_select_top.connect(_on_start_select_top)
 	save_design.pressed.connect(_on_save_design_pressed)
 	quit_design.pressed.connect(_on_quit_design_pressed)
-	
-	show_design_panel()
-	
-	# 未选底盘：主炮列表不可选
-	_set_top_list_enabled(false)
 
-func SetUp(context_pos : Vector2) -> void:
-	saved_design_panel.SetUp(context_pos)
+	# 只初始化列表，不显示面板：设计面板必须由「点击兵营」打开。
+	# 开局就摆出来的话，玩家会直接在没指定兵营的面板上征召，
+	# 出生点拿不到兵营，兵就出不来（表现为"点了没反应"）。
+	refresh_bottom_list()
+	refresh_top_list()
+	_set_top_list_enabled(false)
+	hide()
+
+func SetUp(context_building : Construction) -> void:
+	saved_design_panel.SetUp(context_building)
 
 func show_design_panel() -> void:
 	refresh_bottom_list()
@@ -54,7 +57,6 @@ func refresh_bottom_list() -> void:
 		var res := SoiderComponentData.BOTTOM_RES[enum_val] as SoiderBottomResource
 		bottom_item_list.add_item(res.display_name, res.bottom_texture, true)
 
-## ============ 交互 ============
 ## 换了底盘：槽位布局全变，旧装配作废，重建全空槽
 func _on_bottom_item_selected(index: int) -> void:
 	if index < 0 or index >= usable_bottom_list.size():
@@ -87,8 +89,6 @@ func _on_top_item_selected(index: int) -> void:
 	design_preview.set_slot_turret(_editing_slot, res)
 	_refresh_preview()
 
-
-## ============ 状态 / 产出 ============
 func _current_bottom_res() -> SoiderBottomResource:
 	if _bottom_enum < 0:
 		return null

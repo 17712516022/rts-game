@@ -37,7 +37,7 @@ func _updata_text() -> void:
 
 func _on_upgrade_pressed() -> void:
 	if build_res.display_name == "兵营" :
-		EventBus.start_design.emit(build.global_position)
+		EventBus.start_design.emit(build)
 	
 	pass
 

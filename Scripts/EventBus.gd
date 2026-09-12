@@ -22,9 +22,11 @@ signal material_changed( material : MaterialManager.MATERIAL , value : float, sq
 signal month_passed(squad : TeamData.Team)
 
 ## turret_choices：与底盘槽位等长的数组，第 i 项 = 槽位 i 的主炮枚举，-1 = 空槽
-signal spawn_soider(turret_choices : Array , bottom : SoiderComponentData.BOTTOM , pos : Vector2)
+signal spawn_soider(turret_choices : Array , bottom : SoiderComponentData.BOTTOM , pos : Vector2 )
 
-signal start_design(pos : Vector2)
+## 请求打开设计面板。带的是"发起打开的兵营节点"而不是坐标快照：
+## 士兵要从这个兵营的位置出生，存节点才能在兵营被拆/易手时立刻发现，不会拿着过期坐标硬出兵。
+signal start_design(building : Construction)
 
 signal save_the_design(design : SoiderDesign)
 
@@ -38,7 +40,7 @@ signal hide_path_vfx
 signal select_the_soider
 
 ## 士兵被成功创建并挂到容器后广播（玩家/敌人都发），参数是实例，供 AI 之类收集自己阵营的兵
-signal soider_spawned(soider : SoiderBottom)
+signal soider_spawned(soider : SoiderBottom,squad : TeamData.Team)
 
 ## 有中心易手/需要全图建筑按归属中心刷新阵营时广播（CenterOwnershipManager 负责执行刷新）
 signal team_refresh_requested

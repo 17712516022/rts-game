@@ -63,15 +63,31 @@ func total_attack() -> float:
 		sum += (res as SoiderTopResource).attack
 	return sum
 
-## 征召消耗（底盘 + 各已装主炮合并）
+## 征召消耗（底盘 + 各已装主炮合并），key = MaterialManager.MATERIAL 枚举。
+## 这个字典可以直接喂给 MaterialManager.try_spend / can_afford。
 func total_cost() -> Dictionary:
-	var cost: Dictionary = {}
-	var bottom := bottom_res()
+	return merge_cost(bottom_res(), installed_top_res_list())
+
+## 静态：把一份底盘 + 一组主炮的消耗合并成 {MATERIAL: value}，同名材料累加。
+## 面板展示、出兵结算、AI 决策都走这里，保证"看到的花费 = 实际扣的花费"。
+static func merge_cost(bottom: SoiderBottomResource, top_res_list: Array) -> Dictionary:
+	var cost : Dictionary = {}
 	if bottom != null:
-		cost.merge(bottom.bottom_resource_cost)
-	for res in installed_top_res_list():
-		cost.merge((res as SoiderTopResource).top_resource_cost)
+		_merge_into(cost, bottom.resource_cost_enum())
+	for res in top_res_list:
+		var top_res := res as SoiderTopResource
+		if top_res != null:
+			_merge_into(cost, top_res.resource_cost_enum())
 	return cost
+
+## 静态私有：把 src 的每项累加进 dst（同名材料相加，不是覆盖）
+static func _merge_into(dst : Dictionary, src : Dictionary) -> void:
+	for material in src:
+		dst[material] = dst.get(material, 0.0) + src[material]
+
+## 征召消耗的中文文本（"金币 90  木材 20  人口 1"）；没消耗返回 "无"
+func cost_text() -> String:
+	return MaterialManager.costs_to_text(total_cost())
 
 ## 拼成面板展示用的 bbcode 文本；没选底盘返回空串
 func summary_text() -> String:
@@ -96,6 +112,6 @@ func summary_text() -> String:
 	var cost := total_cost()
 	if not cost.is_empty():
 		text += "\n[b]【征召消耗】[/b]"
-		for res_name in cost:
-			text += "\n%s：%s" % [res_name, str(cost[res_name])]
+		for material in cost:
+			text += "\n%s：%.0f" % [MaterialManager.material_name(material), cost[material]]
 	return text

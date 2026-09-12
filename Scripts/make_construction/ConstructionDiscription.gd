@@ -38,8 +38,8 @@ func _update_content() -> void:
 		txt += "[b]建造时间 : [/b] [color=green]%.1f 秒[/color] (基础 %.1f)\n" % [actual_time, _res.time]
 	
 	txt += "[b]生命值 : [/b] %.0f\n" % _res.health
-	# 消耗
-	txt += "[b]消耗 : [/b] " + _mat_dict_to_str(_res.resource_cost_enum()) + "\n"
+	# 消耗（材料名统一走 MaterialManager，别再各写一份 match）
+	txt += "[b]消耗 : [/b] " + MaterialManager.costs_to_text(_res.resource_cost_enum()) + "\n"
 	# 产出：地形必有，直接算实际值（含修正）
 	txt += "[b]产出 : [/b] " + _actual_output_to_str(terrain)
 	rich_text_label.text = txt
@@ -54,30 +54,9 @@ func _actual_output_to_str(terrain: MapData.TERRAIN) -> String:
 	for the_material in out:
 		var base: float = out[the_material]
 		var actual := ConstructionResource.calculate_output(base, the_material, terrain)
+		var mat_name := MaterialManager.material_name(the_material)
 		if actual < base - 0.01:
-			parts.append("%s [color=red]%.1f[/color] (基础 %.0f)" % [_material_name(the_material), actual, base])
+			parts.append("%s [color=red]%.1f[/color] (基础 %.0f)" % [mat_name, actual, base])
 		else:
-			parts.append("%s [color=green]%.1f[/color] (基础 %.0f)" % [_material_name(the_material), actual, base])
+			parts.append("%s [color=green]%.1f[/color] (基础 %.0f)" % [mat_name, actual, base])
 	return "  ".join(parts)
-
-# 把 {MaterialManager.MATERIAL.GOLD: 100, ...} 拼成 "金币 100  木材 50"
-func _mat_dict_to_str(d: Dictionary) -> String:
-	if d.is_empty():
-		return "无"
-	var parts: Array = []
-	for key in d:
-		parts.append("%s %.0f" % [_material_name(key), d[key]])
-	return "  ".join(parts)
-
-# MaterialManager.MATERIAL 枚举 -> 中文显示名
-func _material_name(mat: MaterialManager.MATERIAL) -> String:
-	match mat:
-		MaterialManager.MATERIAL.GOLD:
-			return "金币"
-		MaterialManager.MATERIAL.FOOD:
-			return "食物"
-		MaterialManager.MATERIAL.WOOD:
-			return "木材"
-		MaterialManager.MATERIAL.MINE:
-			return "矿石"
-	return "未知"

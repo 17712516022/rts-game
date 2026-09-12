@@ -47,22 +47,15 @@ func _on_center_destroyed(center: Construction) -> void:
 func _fill_owner_for_new_center(new_center: Construction) -> void:
 	ConstructionData.ensure_owner_grid()
 	var center_cell: Vector2i = new_center.cell
-	var h: int = MapData.map_height
-	var w: int = MapData.map_width
-	for row in range(h):
-		for col in range(w):
-			var cell := Vector2i(row, col)
-			# 新中心范围外 → 跳过
-			if _hex_distance(cell, center_cell) > OWNER_RADIUS:
-				continue
-			var old_owner = ConstructionData.owner_grid[row][col]
-			# 原来已经有归属 → 不动（先建优先，已经被老中心占了）
-			if old_owner != null:
-				continue
-			# 空着的：在所有中心里找最佳（最近赢；相同距离取遍历遇到的第一个）
-			var best = _find_best_owner(cell)
-			if best != null:
-				ConstructionData.owner_grid[row][col] = best
+	# 只扫新中心势力半径内的格子（约 37 格），不再全图遍历
+	for cell in PositionCaculater.search_closest_cell(center_cell, OWNER_RADIUS):
+		# 原来已经有归属 → 不动（先建优先，已经被老中心占了）
+		if ConstructionData.owner_grid[cell.x][cell.y] != null:
+			continue
+		# 空着的：在所有中心里找最佳（最近赢；相同距离取遍历遇到的第一个）
+		var best = _find_best_owner(cell)
+		if best != null:
+			ConstructionData.owner_grid[cell.x][cell.y] = best
 	_sync_all_construction_owners()
 
 ## 拆中心：清掉这个中心的势力 → 用剩下的中心把空地重新「填空」（填最近的那个中心）
@@ -71,21 +64,17 @@ func remove_center(center: Construction) -> void:
 		return
 	_centers.erase(center)
 	ConstructionData.ensure_owner_grid()
-	var h: int = MapData.map_height
-	var w: int = MapData.map_width
-	# 第一步：这个中心管辖的所有格子清回 null（空）
-	for row in range(h):
-		for col in range(w):
-			if ConstructionData.owner_grid[row][col] == center:
-				ConstructionData.owner_grid[row][col] = null
-	# 第二步：把刚清出来的空格（null），用剩下的中心重新填空（最近赢）
-	for row in range(h):
-		for col in range(w):
-			if ConstructionData.owner_grid[row][col] != null:
-				continue   # 有归属 → 不动
-			var best = _find_best_owner(Vector2i(row, col))
-			if best != null:
-				ConstructionData.owner_grid[row][col] = best
+	# 被拆中心管辖的格子必然在它势力半径内，只扫这一小片，不再全图遍历
+	var freed_cells: Array = []
+	for cell in PositionCaculater.search_closest_cell(center.cell, OWNER_RADIUS):
+		if ConstructionData.owner_grid[cell.x][cell.y] == center:
+			ConstructionData.owner_grid[cell.x][cell.y] = null
+			freed_cells.append(cell)
+	# 把刚清出来的空格用剩下的中心重新填空（最近赢）
+	for cell in freed_cells:
+		var best = _find_best_owner(cell)
+		if best != null:
+			ConstructionData.owner_grid[cell.x][cell.y] = best
 	_sync_all_construction_owners()
 
 ## 同步所有已实例化的 Construction 实例 owner_center（A+B 双写）
@@ -110,17 +99,21 @@ func refresh_all_teams() -> void:
 		return
 	var h: int = MapData.map_height
 	var w: int = MapData.map_width
+	var all_buildings: Array = []
 	for child in _construction_container.get_children():
 		if not (child is Construction):
 			continue
 		var c: Construction = child
 		if c.cell.x < 0 or c.cell.y < 0 or c.cell.x >= h or c.cell.y >= w:
 			continue
+		all_buildings.append(c)
 		var center = ConstructionData.owner_grid[c.cell.x][c.cell.y]
 		if center == null or center == c:
 			continue
 		if center.get_squad_id() != c.get_squad_id():
 			c.squad.set_team_id(center.get_squad_id())
+	# 易手后阵营全变了：按容器里的建筑重扫一次索引（O(建筑数)），不扫地图
+	ConstructionData.rebuild_index(all_buildings)
 
 ## 给单个格子找最佳归属行政中心：最近赢；相同距离取字典遍历遇到的第一个（都没先后意义）
 ## 返回中心 Construction 节点（找到）或 null（没中心在半径内）

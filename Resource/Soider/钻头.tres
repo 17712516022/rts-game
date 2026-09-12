@@ -8,5 +8,7 @@ script = ExtResource("1_ue6of")
 display_name = "钻头"
 attack = 40.0
 attack_range = 10.0
+cost_gold = 20.0
+cost_wood = 20.0
 top_texture = ExtResource("2_70oru")
 metadata/_custom_type_script = "uid://diqbgbo4sy5ri"

@@ -30,29 +30,13 @@ func try_build(cell: Vector2i, building_type: ConstructionData.Constructions, ou
 		return false
 	
 	var res : ConstructionResource = construction_factory.create_new_construction(building_type)
-	# 检查资源是否足够（can_spend 全过才能建）
-	if not _check_cost(res, out_err,squad):
+	# 检查 + 扣资源一步到位：try_spend 是原子的，花不起就一分不扣（不会出现扣了一半建不成）
+	if not MaterialManager.try_spend(res.resource_cost_enum(), squad):
+		out_err.append("资源不足：" + MaterialManager.costs_to_text(res.resource_cost_enum()))
 		return false
-	# 扣资源
-	_pay_cost(res,squad)
 	# 放置建筑
 	_spawn_building(cell, res, squad)
 	return true
-
-# 检查建造消耗：resource_cost_enum() 已经把 0 值过滤了，直接枚举 key
-func _check_cost(resource: ConstructionResource, out_err: Array, squad : TeamData.Team) -> bool:
-	var cost := resource.resource_cost_enum()
-	for material in cost:
-		if not MaterialManager.can_spend(material, cost[material],squad):
-			out_err.append("资源不足")
-			return false
-	return true
-
-# 实际扣资源
-func _pay_cost(resource: ConstructionResource , squad : TeamData.Team) -> void:
-	var cost := resource.resource_cost_enum()
-	for material in cost:
-		MaterialManager.spend_material(material, cost[material],squad)
 
 # 在指定格子中心实例化一个建筑节点，把图标显示到地图上
 # team：这栋建筑归哪个阵营（玩家 0，敌人 1...），默认玩家
@@ -68,4 +52,5 @@ func _spawn_building(cell: Vector2i, resource: ConstructionResource, team: int =
 	building.squad.set_team_id(team)
 	
 	ConstructionData.building_grid[cell.x][cell.y] = building
+	ConstructionData.index_building(building)
 	

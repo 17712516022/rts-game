@@ -14,6 +14,6 @@ func _ready() -> void:
 	
 	EventBus.start_design.connect(_show_design_panel)
 
-func _show_design_panel(pos : Vector2) -> void:
+func _show_design_panel(building : Construction) -> void:
 	design_panel.show_design_panel()
-	design_panel.SetUp(pos)
+	design_panel.SetUp(building)

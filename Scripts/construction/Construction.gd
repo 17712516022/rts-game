@@ -32,9 +32,7 @@ var res : ConstructionResource
 var terrain : MapData.TERRAIN
 ## 建筑所在格子，由建造管理器实例化时设置（用于反查地形）
 var cell : Vector2i = Vector2i(-1, -1)
-## 归属的行政中心节点：由 CenterOwnershipManager 重算后写入。
-## 类型与 owner_grid 保持一致：有归属 = 行政中心 Construction 实例，无归属 = null。
-## 存节点而非坐标：要取中心阵营/位置直接 owner_center.get_squad_id() / owner_center.cell，不用坐标反查。
+
 var owner_center = null
 ## 政策建造时间修正（将来接政策系统，>1 = 建造更慢，<1 = 更快），占位 1.0
 var policy_modifier: float = 1.0
@@ -123,10 +121,13 @@ func take_damage(amount: float, attacker_squad: int = -1) -> void:
 
 ## 中心易手：换阵营、回满血、广播全图刷新
 func _capture_by(new_squad: int) -> void:
+	# 先按旧阵营从索引移除，换阵营后再按新阵营登记（易手是"迁移"，不是新增）
+	ConstructionData.unindex_building(self)
 	squad.set_team_id(new_squad)
 	health = res.health if res != null else health
 	_capture_until_ms = Time.get_ticks_msec() + CAPTURE_INVULN_MS
 	updata_health_bar()
+	ConstructionData.index_building(self)
 	EventBus.team_refresh_requested.emit()
 
 # 死亡：从场景树移除
@@ -138,4 +139,5 @@ func _die() -> void:
 	# 顺序反了会残留 freed 引用（节点先释放，grid 里还指向它）。
 	if is_center():
 		EventBus.center_destroyed.emit(self)
+	ConstructionData.unindex_building(self)
 	queue_free()

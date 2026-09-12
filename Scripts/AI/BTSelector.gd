@@ -10,6 +10,6 @@ func tick(ctx : Dictionary ) -> int:
 	for i in children:
 		var result : int = i.tick(ctx)
 		if result != Status.FALIURE : # 遇到 SUCCESS 或 RUNNING 都短路
-			return Status.SUCCESS
+			return result
 	
 	return Status.FALIURE

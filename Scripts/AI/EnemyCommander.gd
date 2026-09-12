@@ -20,6 +20,7 @@ var root : BTSequnce                # 决策树的根：补建 → 攻击 → �
 func _ready() -> void:
 	EventBus.game_ready.connect(_on_game_ready, CONNECT_ONE_SHOT)
 	EventBus.construct_building.connect(_on_building_down)
+	EventBus.team_refresh_requested.connect(_on_center_changed)
 
 func _on_game_ready() -> void:
 	# 建造管理器：必须挂到场景树 + 注入容器，否则内部 add_child 崩
@@ -51,6 +52,8 @@ func _on_tick() -> void:
 		"construction_manager" : construction_manager,
 		"centres" : centres,
 		"squad" : squad,
+		"start_cell" : start_cell,
+		"armys" : SoiderManager.get_soiders(soider_container,squad)
 	}
 	root.tick(ctx)
 
@@ -83,8 +86,7 @@ func _attack_stage() -> BTSelector:
 ## 设计阶段：先设计底盘，成功后才继续设计炮台。
 func _design_stage() -> BTSequnce:
 	var design_sequnce : BTSequnce = BTSequnce.new()
-	design_sequnce.add(AIDesign.new(AIDesign.Step.BOTTOM))
-	design_sequnce.add(AIDesign.new(AIDesign.Step.TOP))
+	design_sequnce.add(AIDesign.new())
 	return design_sequnce
 
 ## 资源门槛装饰：ctx 里该资源 < 门槛 → 交给 AIBuild 去补这栋建筑
@@ -95,3 +97,9 @@ func _build_branch(res_key : String, building_type : ConstructionData.Constructi
 
 func _on_building_down(building_type : ConstructionResource, cell_pos : Vector2i ,) -> void:
 	AiTools.refresh_centres(building_type , cell_pos , centres , squad)
+
+func _on_center_changed() -> void:
+	centres.clear()
+	for c in ConstructionData.buildings_by_squad.get(squad, []):
+		if c.is_center():
+			centres.append(c.cell)

@@ -11,7 +11,8 @@ func add(new_node : BTNode) -> BTRandomSelector:
 func tick(ctx : Dictionary) -> int:
 	children.shuffle()
 	for i in children:
-		if i.tick(ctx) != Status.FALIURE:
-			return Status.SUCCESS
-
+		var result  = i.tick(ctx)
+		if result != Status.FALIURE:
+			return result
+	
 	return Status.FALIURE

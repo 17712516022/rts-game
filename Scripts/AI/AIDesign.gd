@@ -1,35 +1,47 @@
 class_name AIDesign extends BTLeaf
-## 敌人"设计士兵"动作叶子：把一整套士兵（底盘 + 各槽主炮）按预算攒出来。
-## 原 EnemyCommander 用两个 AIDesign 占位（try_design_bottom / try_design_top），
-## 现在用 Step 参数区分这两小步，外层 Sequence 里按 BOTTOM → TOP 顺序放两个实例。
-## ctx 现成可用：gold / mine / wood 及对应 *_threshold（预算）、squad（自己阵营）。
-## 执行体是旧占位的迁移（原实现是 TODO 恒 SUCCESS）；真实"设计"待接入
-## （参考玩家侧 SoiderDesign：填 bottom_enum 和 turret_choices，再 EventBus.spawn_soider 出兵）。
-
-enum Step {
-	BOTTOM,  # 第一步：选底盘
-	TOP,     # 第二步：给各槽位装主炮
-}
-
-var step : Step
-
-func _init(p_step : Step) -> void:
-	step = p_step
 
 func execute(ctx : Dictionary) -> int:
-	match step:
-		Step.BOTTOM:
-			return design_bottom(ctx)
-		Step.TOP:
-			return design_top(ctx)
+	return design(ctx)
+
+func design(ctx : Dictionary) -> int:
+	var bottom : int = -1
+	var tops : Array = []
+	
+	for key in SoiderComponentData.BOTTOM_RES :
+		if MaterialManager.can_afford(SoiderComponentData.BOTTOM_RES[key].resource_cost_enum(), ctx["squad"]):
+			bottom = key
+	
+	if bottom < 0:                    # 连最便宜的底盘都造不起
+		return Status.FALIURE
+	
+	for key in SoiderComponentData.TOP_RES :
+		var next_tops : Array = tops.duplicate()
+		next_tops.append(key)
+		var next_res : Array = []
+		
+		for i in next_tops:
+			next_res.append(SoiderComponentData.TOP_RES[i])
+		var next_total_cost : Dictionary = SoiderDesign.merge_cost(
+			SoiderComponentData.BOTTOM_RES[bottom], next_res
+		)
+		if MaterialManager.can_afford(next_total_cost, ctx["squad"]):
+			tops.append(key)
+	
+	var pos : Vector2 = select_spawn_pos(ctx)
+	if pos == Vector2(-1,-1):
+		return Status.FALIURE
+	
+	spawn_soider(bottom, tops, pos)
 	return Status.SUCCESS
 
-## 选底盘（参考 SoiderComponentData.BOTTOM_RES，按当前资源挑可负担的）
-func design_bottom(_ctx : Dictionary) -> int:
-	# TODO(设计)：把选中底盘记到队伍设计里（如 SoiderDesign.bottom_enum）。
-	return Status.SUCCESS
+func select_spawn_pos(ctx : Dictionary) -> Vector2:
+	# 出兵点直接用已缓存的己方中心（centres），不再全图找兵营；
+	# 顺便修掉"AI 从不建兵营 → design 一直失败"的问题。
+	var centres := ctx.get("centres", []) as Array
+	if centres.is_empty():
+		return Vector2(-1, -1)
+	var cell : Vector2i = centres.pick_random()
+	return PositionCaculater.calculate_position(cell.x, cell.y)
 
-## 按底盘槽位逐个配主炮（参考 SoiderComponentData.TOP_RES 与底盘 slot_count）
-func design_top(_ctx : Dictionary) -> int:
-	# TODO(设计)：把各槽主炮记到队伍设计里（如 SoiderDesign.turret_choices）。
-	return Status.SUCCESS
+func spawn_soider(bottom : int , tops : Array ,pos : Vector2) -> void:
+	EventBus.spawn_soider.emit(tops , bottom , pos)

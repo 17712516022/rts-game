@@ -44,3 +44,12 @@ func get_soider_count(container : Node2D,squad : int) -> int:
 		if child.get_squad_id() == squad:
 			count += 1
 	return count
+
+func get_soiders(container : Node2D,squad : int) -> Array:
+	var result : Array = []
+	for  i in container.get_children():
+		var child : SoiderBottom = i
+		if child.get_squad_id() == squad : 
+			result.append(child)
+	
+	return result

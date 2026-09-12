@@ -31,7 +31,8 @@ func _product(squad : TeamData.Team) -> void:
 		var result := ConstructionResource.calculate_output(base, material, terrain, police_modifier)
 		MaterialManager.receive_material(material, result ,squad)
 		
-		floating_label_pool.show_label(construction.global_position , str("+ " + str(result) + str(material)))
+		# 浮字要显示材料中文名：直接 str(枚举) 出来的是 "0/1/2"，玩家看不懂
+		floating_label_pool.show_label(construction.global_position, "+%.0f %s" % [result, MaterialManager.material_name(material)])
 
 ## month_passed 会为每个阵营各广播一轮：建筑只在自己阵营那一轮产出，
 ## 否则每轮都触发一次，产出会翻倍/错账。
