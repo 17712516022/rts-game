@@ -21,3 +21,9 @@ func refresh_centres(building_type : ConstructionResource, cell_pos : Vector2i ,
 		var c : Construction = ConstructionData.building_grid[cell_pos.x][cell_pos.y]
 		if c != null and c.get_squad_id() == squad:
 			centres.append(cell_pos)
+
+func on_center_changed(centres : Array ,squad : TeamData.Team) -> void:
+	centres.clear()
+	for c in ConstructionData.buildings_by_squad.get(squad, []):
+		if c.is_center():
+			centres.append(c.cell)

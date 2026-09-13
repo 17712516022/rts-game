@@ -96,10 +96,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_p6j36")
 
+[node name="Panel" type="Panel" parent="." unique_id=549156273]
+layout_mode = 1
+offset_left = -285.0
+offset_top = -124.0
+offset_right = 877.0
+offset_bottom = 570.0
+
 [node name="DesignPanelContainer" type="PanelContainer" parent="." unique_id=1023994241]
 layout_mode = 0
-offset_right = 306.0
-offset_bottom = 320.0
+offset_top = -43.0
+offset_right = 588.0
+offset_bottom = 452.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_aqlfj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DesignPanelContainer" unique_id=1725559988]

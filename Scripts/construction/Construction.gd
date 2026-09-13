@@ -2,20 +2,20 @@ class_name Construction extends StaticBody2D
 
 @onready var construction_texture: Sprite2D = %ConstructionTexture
 @onready var builder_animation: BuilderAnimation = %BuilderAnimation
+@onready var spawn_soider_animation: SpawnSoiderAnimation = %SpawnSoiderAnimation
 @onready var output_productor: OutputProductor = %OutputProductor
 @onready var floating_label_pool: FloatingLabelPool = %FloatingLabelPool
 @onready var squad: Squad = $Squad
 @onready var construction_hurt_box: Area2D = %ConstructionHurtBox
 @onready var construction_progress_bar: TextureProgressBar = %ConstructionProgressBar
+@onready var spawn_soider_progress_bar: TextureProgressBar = %SpawnSoiderProgressBar
 
 ## 对外暴露阵营：与部队同 squad 时，这栋建筑对那支部队不挡路
 ## 注意：读取可以在此转发，写入阵营统一走 $Squad.set_team_id（Squad 组件管自己的阵营）
 func get_squad_id() -> int:
 	return squad.get_squad() if squad != null else -1
-
+	
 ## 是不是行政中心（中心是"势力心脏"：被打到 0 不消失，而是易手换主）
-## 判断依据是 res.display_name（中心类型唯一标识），不能用 res 引用 == 模板常量：
-## 建造时工厂会 duplicate 一份配置，副本引用不等于模板，== 永远比不中。
 func is_center() -> bool:
 	return res != null and res.is_center_kind()
 
@@ -41,11 +41,13 @@ var policy_modifier: float = 1.0
 var is_under_construction: bool:
 	get:
 		return builder_animation != null and builder_animation.is_building
-
 ## 对外暴露：剩余建造时间（秒），查 Builder
 var remaining_build_time: float:
 	get:
 		return builder_animation.remaining_time if builder_animation != null else 0.0
+var is_spawn_army : bool :
+	get :
+		return spawn_soider_animation.visible == true
 
 func _ready() -> void:
 	construction_hurt_box.body_entered.connect(_on_bullet_entered)

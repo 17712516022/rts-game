@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func _on_spawn_soider(turret_choices : Array, bottom : SoiderComponentData.BOTTOM, pos : Vector2) -> void:
 	var src_building : Construction = _building_at(pos)
-	if src_building == null:
+	if src_building == null or src_building.res == null or src_building.res.display_name != "兵营":
 		return
 	var squad : TeamData.Team = src_building.get_squad_id()
 	
@@ -35,8 +35,8 @@ func _on_spawn_soider(turret_choices : Array, bottom : SoiderComponentData.BOTTO
 	bottom_node.cell = PositionCaculater.calculate_cell(pos)
 	# 挂到容器下
 	soider_container.add_child(bottom_node)
-	# 广播（玩家/敌人的兵都会发，接收方按 squad 过滤自己阵营的）
-	EventBus.soider_spawned.emit(bottom_node,bottom_node.get_squad_id())
+	
+	src_building.spawn_soider_animation.start(ress.turrets,bottom_node)
 
 ## 世界坐标所在格上的建筑（没有 / 越界返回 null）
 func _building_at(spawn_pos: Vector2) -> Construction:

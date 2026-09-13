@@ -28,6 +28,8 @@ func slot_count() -> int:
 ## 征召占用的人口（造兵会真的从人口池里扣，形成"军队 vs 经济"的取舍）
 @export var cost_population: float = 0.0
 
+@export var spawn_time : float = 0.0 
+
 ## 运行时使用：拿到 MaterialManager.MATERIAL 枚举做 key 的消耗字典。
 ## 不传 value = 0 的条目，方便上层 for 循环只遍历实际有值的材料。
 func resource_cost_enum() -> Dictionary:

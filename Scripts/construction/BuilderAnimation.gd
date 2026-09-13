@@ -1,10 +1,4 @@
 class_name BuilderAnimation extends Node
-## 建造倒计时+渐显组件：给 Construction 实例挂的子组件。
-## 一个时钟一个职责：
-##   - _process 负责倒计时：每帧 remaining_time -= delta，到 0 emit build_finished
-##   - Tween 只负责视觉：modulate 从透明渐变到不透明（和倒计时同时开始、同样时长）
-##   - 进度条在 _process 里同步刷新（和 Tween 同一个 idle 时钟，不抖动）
-## 不存 ConstructionResource 引用——Builder 只知道"让某节点渐显 N 秒"。
 
 signal build_finished
 

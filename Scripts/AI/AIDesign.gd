@@ -35,13 +35,13 @@ func design(ctx : Dictionary) -> int:
 	return Status.SUCCESS
 
 func select_spawn_pos(ctx : Dictionary) -> Vector2:
-	# 出兵点直接用已缓存的己方中心（centres），不再全图找兵营；
-	# 顺便修掉"AI 从不建兵营 → design 一直失败"的问题。
-	var centres := ctx.get("centres", []) as Array
-	if centres.is_empty():
+	var barracks : Array = []
+	for b in ConstructionData.buildings_by_squad.get(ctx["squad"], []):
+		if b is Construction and b.res != null and b.res.display_name == "兵营":
+			barracks.append(b)
+	if barracks.is_empty():
 		return Vector2(-1, -1)
-	var cell : Vector2i = centres.pick_random()
-	return PositionCaculater.calculate_position(cell.x, cell.y)
+	return barracks.pick_random().global_position
 
 func spawn_soider(bottom : int , tops : Array ,pos : Vector2) -> void:
 	EventBus.spawn_soider.emit(tops , bottom , pos)

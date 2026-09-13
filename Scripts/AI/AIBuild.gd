@@ -9,10 +9,10 @@ func execute(ctx : Dictionary) -> int:
 	var construction_manager := ctx.get("construction_manager") as ConstructionManager
 	if construction_manager == null:
 		return Status.FALIURE
-
+	
 	var squad : TeamData.Team = ctx.get("squad", TeamData.Team.ENEMY)
 	var centres := ctx.get("centres", []) as Array
-
+	
 	var cells : Array = AiTools.find_empty_cells(centres)
 	if cells.is_empty():
 		return Status.FALIURE

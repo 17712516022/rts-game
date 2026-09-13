@@ -5,7 +5,7 @@ const TIME_WAIT_TIME := 2.0
 # —— 各资源"低于这个数就去补对应建筑"的门槛（想调策略改这里）——
 const GOLD_LOW := 300.0   # 敌人初始金 1000
 const MINE_LOW := 300.0   # 敌人初始矿 1000
-const WOOD_LOW := 300.0   # 敌人初始木 1000
+const WOOD_LOW := 300.0   # 敌人初始木 1000 
 
 var squad : TeamData.Team = TeamData.Team.ENEMY
 var construction_manager : ConstructionManager
@@ -46,6 +46,8 @@ func _on_tick() -> void:
 		"mine_threshold": MINE_LOW,
 		"wood": MaterialManager.get_material_number(MaterialManager.MATERIAL.WOOD, squad),
 		"wood_threshold": WOOD_LOW,
+		"food": MaterialManager.get_material_number(MaterialManager.MATERIAL.FOOD, squad),
+		"food_threshold": MaterialManager.get_material_number(MaterialManager.MATERIAL.POPULATION , squad),
 		"my_army_count" : SoiderManager.get_soider_count(soider_container,squad),
 		"others_army_count" : SoiderManager.get_soider_count(soider_container,TeamData.Team.PLAYER),
 		# —— 给动作叶子提供的依赖 ——
@@ -65,12 +67,11 @@ func _build_tree() -> void:
 	build_stage.add(_build_branch("gold", ConstructionData.Constructions.RESIDENT)) # 缺金 → 民居(产金)
 	build_stage.add(_build_branch("mine", ConstructionData.Constructions.MINE))     # 缺矿 → 矿井(产矿)
 	build_stage.add(_build_branch("wood", ConstructionData.Constructions.TREE))     # 缺木 → 林场(产木)
+	build_stage.add(_build_branch("food", ConstructionData.Constructions.FARM))     # 缺食物 → 农场(产食物)
 	build_stage.add(BTPass.new())
 	root.add(build_stage)
-	
 	# —— 阶段② 攻击：敌方 < 我方 → 出兵；我方不占优 → 放行给设计 ——
 	root.add(_attack_stage())
-	
 	# —— 阶段③ 设计：顺序设计底盘 → 炮台 ——
 	root.add(_design_stage())
 
@@ -99,7 +100,4 @@ func _on_building_down(building_type : ConstructionResource, cell_pos : Vector2i
 	AiTools.refresh_centres(building_type , cell_pos , centres , squad)
 
 func _on_center_changed() -> void:
-	centres.clear()
-	for c in ConstructionData.buildings_by_squad.get(squad, []):
-		if c.is_center():
-			centres.append(c.cell)
+	AiTools.on_center_changed(centres,squad)
