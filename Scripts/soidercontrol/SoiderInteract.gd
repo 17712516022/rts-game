@@ -52,4 +52,13 @@ func _move_to_mouse() -> void:
 	var points: Array = path_finder.navigate(soider.global_position, target, soider.get_squad_id())
 	EventBus.show_path_vfx.emit(soider, points)
 	
+	var cell : Vector2i = PositionCaculater.calculate_cell(target)
+	var building = ConstructionData.building_grid[cell.x][cell.y]
+	if building != null and building.get_squad_id() != soider.get_squad_id():
+		attack_entity(ConstructionData.building_grid[cell.x][cell.y])
+		return
+	
 	mover.set_target(target)
+
+func attack_entity(entity: Node2D) -> void:
+	mover.set_chase_target(entity)

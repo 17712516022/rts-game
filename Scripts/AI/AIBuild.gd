@@ -16,7 +16,7 @@ func execute(ctx : Dictionary) -> int:
 	var cells : Array = AiTools.find_empty_cells(centres)
 	if cells.is_empty():
 		return Status.FALIURE
-
+	
 	var cell : Vector2i = cells.pick_random()
 	if construction_manager.try_build(cell, building_type, [], squad):
 		return Status.SUCCESS

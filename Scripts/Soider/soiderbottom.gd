@@ -29,6 +29,7 @@ func _ready() -> void:
 	health_progress_bar.value = health_progress_bar.max_value
 	hurtbox.body_entered.connect(_on_body_entered)
 	_init_soider()
+	mover.SetupChaseHitbox()
 
 # 外部注入：传进来士兵配置资源
 func SetUp(context_bott_res : SoiderBottomResource) -> void:

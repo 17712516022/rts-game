@@ -1,15 +1,11 @@
 class_name PathFinder extends Node
-## A* 寻路：在六边形地图上找一条从起点到终点的最低代价路径。
-##入口：
-##   - navigate(起点世界坐标, 终点世界坐标)：返回可直接沿走的坐标点数组（士兵移动用）
-##   - find_path(起点格, 终点格)：返回格子路径（低层接口）
 
 ## 海洋是否可通行（默认不可：还没有海军/运输船）
 @export var allow_ocean: bool = false
 ## 有建筑的格子是否可通行（默认不可：建筑挡路）
 @export var allow_buildings: bool = false
 
-## squad_id：谁在寻路。>=0 时同 squad 的建筑对它不挡路；-1（默认）保持旧行为——建筑一律挡路
+## squad_id：谁在寻路。>=0 时同 squad 的建筑对它不挡路；-1（默认）保持旧行为——建筑一律不挡路
 ## 世界坐标寻路：中间点取各格中心，末点精确落在 to_world（不吸附格中心），
 ## 不含起点格中心（移动方从当前位置直接开走，不闪回/抖动）。
 ## 同格返回 [to_world]；目标不可走（海洋/建筑）或无路返回空数组。
@@ -18,7 +14,7 @@ func navigate(from_world: Vector2, to_world: Vector2, squad_id: int = -1) -> Arr
 	var end_cell: Vector2i = PositionCaculater.calculate_cell(to_world)
 	if start_cell == end_cell:
 		return [to_world]
-	var path := find_path(start_cell, end_cell, squad_id)
+	var path : Array = find_path(start_cell, end_cell, squad_id)
 	if path.size() < 2:
 		return []
 	var points: Array = []
@@ -111,9 +107,9 @@ func _building_blocks(cell: Vector2i, squad_id: int) -> bool:
 	var building = _building_at(cell)
 	if building == null:
 		return false
-	# 无阵营部队（-1）走老逻辑：任何建筑都挡
+	# 无阵营部队（-1）走老逻辑：建筑一律不挡路（返回 false = 不挡）
 	if squad_id < 0:
-		return true
+		return false
 	return building.get_squad_id() != squad_id
 
 ## odd-q 平顶坐标转 cube 后求最短距离（作为 h 永不高估，保证 A* 最优解）

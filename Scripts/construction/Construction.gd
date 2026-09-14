@@ -47,7 +47,7 @@ var remaining_build_time: float:
 		return builder_animation.remaining_time if builder_animation != null else 0.0
 var is_spawn_army : bool :
 	get :
-		return spawn_soider_animation.visible == true
+		return spawn_soider_progress_bar.visible
 
 func _ready() -> void:
 	construction_hurt_box.body_entered.connect(_on_bullet_entered)

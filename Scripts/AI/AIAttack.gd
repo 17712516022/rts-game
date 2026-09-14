@@ -22,6 +22,7 @@ func execute(ctx : Dictionary) -> int:
 	
 	for i in ctx["armys"] :
 		var soider : SoiderBottom = i
-		soider.mover.set_target(true_target.global_position)
+		# 追击建筑（而不是 set_target 到建筑坐标）：终点被敌方建筑占格，只靠 navigate 会得到空路径
+		soider.mover.set_chase_target(true_target)
 	
 	return Status.SUCCESS
