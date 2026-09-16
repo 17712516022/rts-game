@@ -6,9 +6,9 @@
 [resource]
 script = ExtResource("1_m3a30")
 display_name = "激光炮台"
-attack = 200.0
-attack_range = 300.0
-attack_coolingdown = 2.0
+attack = 300.0
+attack_range = 160.0
+attack_coolingdown = 4.0
 cost_gold = 200.0
 cost_mine = 100.0
 cost_population = 1.0

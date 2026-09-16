@@ -6,9 +6,9 @@
 [resource]
 script = ExtResource("1_3rpkk")
 display_name = "机枪炮台"
-attack = 200.0
-attack_range = 100.0
-attack_coolingdown = 1.0
+attack = 50.0
+attack_range = 120.0
+attack_coolingdown = 0.5
 cost_gold = 100.0
 cost_mine = 50.0
 top_texture = ExtResource("2_yn0a6")

@@ -7,7 +7,8 @@
 script = ExtResource("1_fuhbr")
 display_name = "普通炮台"
 attack = 100.0
-attack_range = 50.0
+attack_range = 200.0
+attack_coolingdown = 2.0
 cost_gold = 40.0
 cost_mine = 20.0
 top_texture = ExtResource("2_ippau")

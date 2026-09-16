@@ -61,6 +61,7 @@ func search_closest_cell(center: Vector2i, closest_distance: int = 3) -> Array:
 				visited[nb.x][nb.y] = 1
 				result.append(nb)
 				queue.append([nb, remaining - 1])
+	
 	return result
 
 ## 平顶式 odd-q 六个邻居（和 calculate_position、MapGenerater、RiverGenerater、PathFinder 配套的项目原始约定）

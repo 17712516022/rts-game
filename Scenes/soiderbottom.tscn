@@ -52,8 +52,12 @@ color_ramp = SubResource("GradientTexture1D_qkxii")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o1m7i"]
 size = Vector2(44, 24)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xs3ir"]
-radius = 82.1523
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1u4v"]
+radius = 46.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u8k4"]
+radius = 14.0
+height = 54.0
 
 [node name="Soiderbotton" type="CharacterBody2D" unique_id=1728593908]
 z_index = 2
@@ -112,7 +116,7 @@ flip_h = true
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Turret_0/Hitbox" unique_id=2100000004]
-shape = SubResource("CircleShape2D_xs3ir")
+shape = SubResource("CircleShape2D_f1u4v")
 
 [node name="BulletSpawner" type="Marker2D" parent="Turret_0" unique_id=155095150]
 position = Vector2(34, 0)
@@ -134,3 +138,8 @@ metadata/_custom_type_script = "uid://dgsblt5xqe6xs"
 [node name="Squad" type="Node" parent="." unique_id=604910556]
 script = ExtResource("12_w1t8d")
 metadata/_custom_type_script = "uid://8fdmp3amwegr"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1725512458]
+unique_name_in_owner = true
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_2u8k4")

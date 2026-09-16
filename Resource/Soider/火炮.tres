@@ -7,9 +7,9 @@
 [resource]
 script = ExtResource("1_bgss6")
 display_name = "火炮炮台"
-attack = 40.0
+attack = 100.0
 attack_range = 240.0
-attack_coolingdown = 2.0
+attack_coolingdown = 4.0
 cost_gold = 80.0
 cost_mine = 40.0
 top_texture = ExtResource("2_x3ayd")

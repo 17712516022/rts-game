@@ -20,6 +20,7 @@ var _initialized : bool = false
 @onready var hurtbox: Area2D = %hurtbox
 @onready var health_progress_bar: TextureProgressBar = %healthProgressBar
 @onready var squad: Squad = $Squad
+@onready var collision: CollisionShape2D = %Collision
 
 ## 对外暴露阵营：寻路时用，同 squad 的建筑不挡路
 func get_squad_id() -> int:
@@ -30,6 +31,7 @@ func _ready() -> void:
 	hurtbox.body_entered.connect(_on_body_entered)
 	_init_soider()
 	mover.SetupChaseHitbox()
+	SoiderSeparation.update_squad_soiders(self.get_parent(),self)
 
 # 外部注入：传进来士兵配置资源
 func SetUp(context_bott_res : SoiderBottomResource) -> void:
@@ -67,7 +69,7 @@ func _init_soider() -> void:
 	mover.SetUP(bott_res.speed)
 
 func _physics_process(delta: float) -> void:
-	velocity = mover.get_speed() * mover.get_dirction() 
+	velocity = mover.get_speed() * mover.get_dirction() + SoiderSeparation.steering_force(self)
 	gpu_particles_2d.emitting = mover.is_moving()
 	
 	updata_rotation(delta)
@@ -88,6 +90,7 @@ func attack(delta : float) -> void:
 
 # 死亡：从场景树移除
 func _die() -> void:
+	SoiderSeparation.remove_soider(self)
 	SoiderManager.delete_from_selecting_soider(self)
 	queue_free()
 
@@ -98,6 +101,7 @@ func _on_move_finished() -> void:
 func updata_rotation(delta: float) -> void:
 	var target_rot : float = soiderbottontexture.global_position.angle_to_point(mover.get_next_point())
 	soiderbottontexture.rotation = rotate_toward(soiderbottontexture.rotation, target_rot, turn_speed * delta)
+	collision.rotation = soiderbottontexture.rotation + PI / 2
 	
 	for i in tops:
 		var t: PhysicsBody2D = i.true_target

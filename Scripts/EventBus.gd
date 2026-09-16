@@ -44,3 +44,5 @@ signal soider_spawned(soider : SoiderBottom,squad : TeamData.Team)
 
 ## 有中心易手/需要全图建筑按归属中心刷新阵营时广播（CenterOwnershipManager 负责执行刷新）
 signal team_refresh_requested
+
+signal soider_right_clicked(soider : SoiderBottom)

@@ -1,6 +1,7 @@
 extends Node2D
 
 var soider_selecting : Array
+var current_box : Rect2 = Rect2()
 
 # 选中圈样式：画在自身 _draw 里，0 子节点、0 额外脚本
 const RING_RADIUS : float = 24.0
@@ -12,10 +13,11 @@ func _ready() -> void:
 	z_index = 1
 
 func add_to_selecting_soider(soider : SoiderBottom) -> void:
-	# 去重：同一只士兵已在选中列表里就不重复加入
-	if soider_selecting.has(soider):
-		return
+	soider_selecting.clear()
 	soider_selecting.append(soider)
+
+func set_selecting_soiders(soiders : Array) -> void:
+	soider_selecting = soiders.duplicate()
 
 func delete_from_selecting_soider(soider : SoiderBottom) -> void:
 	soider_selecting.erase(soider)
@@ -35,6 +37,9 @@ func _draw() -> void:
 		for i in soider.tops:
 			var top : SoiderTop = i
 			draw_circle(top.global_position, top.top_res.attack_range, Color(1,1,1), false, 1, true)
+	
+	if current_box.size != Vector2.ZERO:
+		draw_rect(current_box, Color.PURPLE, false, 3,true)
 
 func get_soider_count(container : Node2D,squad : int) -> int:
 	var count : int = 0
@@ -53,3 +58,6 @@ func get_soiders(container : Node2D,squad : int) -> Array:
 			result.append(child)
 	
 	return result
+
+func set_box_rect(box_rect : Rect2) -> void:
+	current_box = box_rect

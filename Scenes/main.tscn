@@ -14,11 +14,40 @@
 [ext_resource type="Script" uid="uid://cmco6m21tk2qd" path="res://Scripts/construction/CenterOwnershipManager.gd" id="14_owner_mgr"]
 [ext_resource type="Script" uid="uid://brwcbmy37yq1r" path="res://Scripts/GameBootstrap.gd" id="15_bootstrap"]
 [ext_resource type="Script" uid="uid://xie4sm1njphb" path="res://Scripts/AI/EnemyCommander.gd" id="15_wsu2k"]
+[ext_resource type="Script" uid="uid://ouxd7acirx6r" path="res://Scenes/Fog.gd" id="16_k12tt"]
 [ext_resource type="Script" uid="uid://dmo4x04ymw75y" path="res://Scripts/VFXManager.gd" id="16_pp"]
+[ext_resource type="Shader" uid="uid://gyvj4ytmhpae" path="res://shader/fog.gdshader" id="17_h1bgf"]
 
 [sub_resource type="Curve" id="Curve_jkdf5"]
 _data = [Vector2(0, 0.50209206), 0.0, 0.0, 0, 0, Vector2(0.49866667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.50209206), 0.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k12tt"]
+shader = ExtResource("17_h1bgf")
+shader_parameter/reveal_points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/reveal_count = 0
+shader_parameter/unit_inner = 140.0
+shader_parameter/unit_outer = 220.0
+shader_parameter/building_points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/building_count = 0
+shader_parameter/building_inner = 260.0
+shader_parameter/building_outer = 380.0
+shader_parameter/fog_origin = Vector2(0, 0)
+shader_parameter/fog_size = Vector2(1, 1)
+shader_parameter/flow_speed = 0.05000000074506
+
+[sub_resource type="Gradient" id="Gradient_gjxql"]
+colors = PackedColorArray(0, 0, 0, 0.98039216, 0.3069226, 0.30692273, 0.30692238, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_co6qv"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vkqoe"]
+width = 2000
+height = 2000
+noise = SubResource("FastNoiseLite_co6qv")
+color_ramp = SubResource("Gradient_gjxql")
+seamless = true
 
 [node name="Map" type="Node2D" unique_id=1351810404]
 script = ExtResource("1_8gbba")
@@ -89,3 +118,13 @@ antialiased = true
 [node name="EnemyCommander" type="Node" parent="." unique_id=735118062]
 script = ExtResource("15_wsu2k")
 metadata/_custom_type_script = "uid://xie4sm1njphb"
+
+[node name="Fog" type="Sprite2D" parent="." unique_id=504987261]
+z_index = 10
+texture_repeat = 2
+material = SubResource("ShaderMaterial_k12tt")
+position = Vector2(0, -4.7683716e-07)
+scale = Vector2(4.6875, 1.7792969)
+texture = SubResource("NoiseTexture2D_vkqoe")
+centered = false
+script = ExtResource("16_k12tt")

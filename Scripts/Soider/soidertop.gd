@@ -40,10 +40,10 @@ func _apply_slot() -> void:
 	if top_res.top_texture != null and soidertoptexture != null:
 		soidertoptexture.texture = top_res.top_texture
 	
-	var hit_box_shape : CollisionShape2D = hitbox.get_child(0) as CollisionShape2D
-	var circle := hit_box_shape.shape as CircleShape2D
-	if circle != null:
+	if hitbox != null:
+		var circle := CircleShape2D.new()
 		circle.radius = top_res.attack_range
+		hitbox.get_child(0).shape = circle
 	
 	max_coolingdown = top_res.attack_coolingdown
 	coolingdown_timer = max_coolingdown
