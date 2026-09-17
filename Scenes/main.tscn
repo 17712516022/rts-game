@@ -14,9 +14,12 @@
 [ext_resource type="Script" uid="uid://cmco6m21tk2qd" path="res://Scripts/construction/CenterOwnershipManager.gd" id="14_owner_mgr"]
 [ext_resource type="Script" uid="uid://brwcbmy37yq1r" path="res://Scripts/GameBootstrap.gd" id="15_bootstrap"]
 [ext_resource type="Script" uid="uid://xie4sm1njphb" path="res://Scripts/AI/EnemyCommander.gd" id="15_wsu2k"]
-[ext_resource type="Script" uid="uid://ouxd7acirx6r" path="res://Scenes/Fog.gd" id="16_k12tt"]
+[ext_resource type="Script" uid="uid://ouxd7acirx6r" path="res://Scripts/Fog.gd" id="16_k12tt"]
 [ext_resource type="Script" uid="uid://dmo4x04ymw75y" path="res://Scripts/VFXManager.gd" id="16_pp"]
 [ext_resource type="Shader" uid="uid://gyvj4ytmhpae" path="res://shader/fog.gdshader" id="17_h1bgf"]
+[ext_resource type="Script" uid="uid://d4g7vr0ad6ojw" path="res://Scripts/GameOver/GameOver.gd" id="18_b3802"]
+[ext_resource type="Script" uid="uid://dkwio1tjl6ewy" path="res://Scripts/TargetMarker.gd" id="19_fevyy"]
+[ext_resource type="Texture2D" uid="uid://b7y8yfjxi2iv1" path="res://art/targetmarker.png" id="19_hibaj"]
 
 [sub_resource type="Curve" id="Curve_jkdf5"]
 _data = [Vector2(0, 0.50209206), 0.0, 0.0, 0, 0, Vector2(0.49866667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.50209206), 0.0, 0.0, 0, 0]
@@ -93,6 +96,7 @@ script = ExtResource("12_popcalc")
 script = ExtResource("13_policy")
 
 [node name="CenterOwnershipManager" type="Node" parent="." unique_id=700000001]
+unique_name_in_owner = true
 script = ExtResource("14_owner_mgr")
 
 [node name="Container" type="Node2D" parent="." unique_id=1851132072]
@@ -128,3 +132,14 @@ scale = Vector2(4.6875, 1.7792969)
 texture = SubResource("NoiseTexture2D_vkqoe")
 centered = false
 script = ExtResource("16_k12tt")
+
+[node name="GameOver" type="Node" parent="." unique_id=1353625350]
+script = ExtResource("18_b3802")
+metadata/_custom_type_script = "uid://d4g7vr0ad6ojw"
+
+[node name="TargetMarker" type="Sprite2D" parent="." unique_id=1059771095]
+z_index = 4
+scale = Vector2(2, 2)
+texture = ExtResource("19_hibaj")
+script = ExtResource("19_fevyy")
+metadata/_custom_type_script = "uid://dkwio1tjl6ewy"

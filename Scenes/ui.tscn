@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dcntw07m2nu83" path="res://Scenes/time_ui.tscn" id="4_2246s"]
 [ext_resource type="PackedScene" uid="uid://c1bss63p0trf3" path="res://Scenes/design_panel.tscn" id="6_smcll"]
 [ext_resource type="PackedScene" uid="uid://c5cy1842ef64n" path="res://Scenes/soider_ui.tscn" id="7_smcll"]
+[ext_resource type="PackedScene" uid="uid://ybqg3rcsnfja" path="res://Scenes/game_over_ui.tscn" id="8_ryf15"]
 
 [node name="ui" type="CanvasLayer" unique_id=1395313548]
 script = ExtResource("1_m78vo")
@@ -29,3 +30,5 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
 grow_vertical = 1
+
+[node name="GameOverUi" parent="." unique_id=615139264 instance=ExtResource("8_ryf15")]

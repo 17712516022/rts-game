@@ -12,6 +12,9 @@ var soider : SoiderBottom
 ## 当前要打的最近目标：士兵或建筑统一当 PhysicsBody2D 处理（打点都取 global_position）
 var true_target : PhysicsBody2D : 
 	get :
+		var ordered : Node2D = soider.mover.chase_target
+		if is_instance_valid(ordered) and targets.has(ordered):
+			return ordered
 		if not targets.is_empty():
 			return targets.front()
 		return null

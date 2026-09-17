@@ -60,7 +60,9 @@ func _move_to_mouse() -> void:
 	var cell : Vector2i = PositionCaculater.calculate_cell(target)
 	var building = ConstructionData.building_grid[cell.x][cell.y]
 	if building != null and building.get_squad_id() != soider.get_squad_id():
-		attack_entity(ConstructionData.building_grid[cell.x][cell.y])
+		# 顺手广播：锁定标识和这里的攻击令同源，不会出现"标了 A 却打 B"
+		EventBus.building_right_clicked.emit(building)
+		attack_entity(building)
 		return
 	
 	
@@ -81,8 +83,4 @@ func _on_soider_right_clicked(c_entity : SoiderBottom) -> void:
 		return
 	attack_entity(c_entity)
 	
-	# 追人时不要留移动预览线：picking 排在 _unhandled_input 之后，这一帧 _move_to_mouse
-	# 已经先发过一条指向鼠标点的 show_path_vfx，只能在这里紧接着收回。
-	# 用无参 hide 清全部轨道是安全的：被点中敌人时，所有选中的兵都会走到这里改成追击，
-	# 没有谁还需要保留移动预览线。
 	EventBus.hide_path_vfx.emit()

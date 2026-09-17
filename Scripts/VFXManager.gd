@@ -117,7 +117,11 @@ func _release_line(line : Line2D) -> void:
 	_line_pool.append(line)
 
 ## 收掉某个 mover 的轨迹（线回池复用）
-func _drop_track(mover: Node2D) -> void:
+## mover 故意不加类型标注：_process 里清理"已被释放的士兵"时也要走这里，
+## 而把 previously freed 的对象传进 Node2D 形参会直接报
+## "Invalid type in function '_drop_track' ... is not a subclass of the expected argument class"。
+## 字典本身不受影响：键 Variant 仍持有该对象的 ObjData，实例 id 有效，has/erase 照常命中。
+func _drop_track(mover) -> void:
 	if not _tracks.has(mover):
 		return
 	_release_line(_tracks[mover]["line"])

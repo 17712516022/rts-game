@@ -20,13 +20,16 @@ func try_build(cell: Vector2i, building_type: ConstructionData.Constructions, ou
 		return false
 	
 	# 行政中心自己不要求有归属（它就是开疆拓土建立归属的起点）
-	var is_center: bool = (building_type == ConstructionData.Constructions.CENTER
-		or building_type == ConstructionData.Constructions.LOWERCENTER)
+	var is_center: bool = (building_type == ConstructionData.Constructions.CENTER or building_type == ConstructionData.Constructions.LOWERCENTER)
+	
 	if not is_center and ConstructionData.owner_grid[cell.x][cell.y] == null:
 		out_err.append("附近没有行政中心，无法建造")
 		return false
 	if ConstructionData.building_grid[cell.x][cell.y] != null:
 		out_err.append("该格已有建筑")
+		return false
+	if ConstructionData.owner_grid[cell.x][cell.y] != null and building_type == ConstructionData.Constructions.LOWERCENTER:
+		out_err.append("附近有行政中心，无法建造")
 		return false
 	
 	var res : ConstructionResource = construction_factory.create_new_construction(building_type)
@@ -39,7 +42,6 @@ func try_build(cell: Vector2i, building_type: ConstructionData.Constructions, ou
 	return true
 
 # 在指定格子中心实例化一个建筑节点，把图标显示到地图上
-# team：这栋建筑归哪个阵营（玩家 0，敌人 1...），默认玩家
 func _spawn_building(cell: Vector2i, resource: ConstructionResource, team: int = TeamData.Team.PLAYER) -> void:
 	var building: Construction = CONSTRUCTION_SCENE.instantiate()
 	building.set_resource(resource)

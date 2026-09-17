@@ -138,8 +138,8 @@ func _die() -> void:
 	ConstructionData.building_grid[self_pos.x][self_pos.y] = null
 	# 中心被打死（无主伤害等不走易手的路径）：必须先广播让 CenterOwnershipManager 清掉
 	# 它辖下所有格子的归属并重填，再 queue_free。owner_grid 存的是中心节点引用，
-	# 顺序反了会残留 freed 引用（节点先释放，grid 里还指向它）。
 	if is_center():
 		EventBus.center_destroyed.emit(self)
+	
 	ConstructionData.unindex_building(self)
 	queue_free()

@@ -10,6 +10,7 @@ signal float_aniamtion_finished(label : FloatingLabel)
 func play(global_pos : Vector2 , text : String) -> void:
 	self.global_position = global_pos
 	floating_label_text.text = text
+	self.modulate = Color(1,1,1,1)
 	
 	show()
 	

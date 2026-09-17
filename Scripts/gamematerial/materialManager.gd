@@ -59,9 +59,6 @@ func can_spend(material : MATERIAL ,value : float,squad : TeamData.Team) -> bool
 	# 余额刚好等于花费也允许（花完正好变 0，和 spend_material 的 maxf 行为一致）
 	return squads_material[squad][material] - value >= 0
 
-# ============ 字典版支付网关（建造 / 征召共用）============
-# 统一入口：costs 是 {MATERIAL: value}，value <= 0 的条目会被忽略。
-# 花得起就全部扣掉，花不起一分不扣（原 _check_cost + _pay_cost 两步的原子版）。
 
 ## 能不能付得起这份账单（不扣钱，用于按钮置灰 / 预览）
 func can_afford(costs : Dictionary, squad : TeamData.Team) -> bool:

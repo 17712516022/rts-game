@@ -1,22 +1,9 @@
-extends Node
-## 规则：「先建优先 = owner_grid 先占先赢」——新中心建成时，只对 owner_grid 还空着的格子
-##       找最佳归属；原来已经被其他中心占了的格子，一律不动。
-## 这样：
-##   - 冲突自动解决：重叠格永远是先建那个中心的势力范围
-##   - 每次只填新格子，不用全图重算+不用维护建造时间数组顺序，更轻更直观
-## 拆中心时：把这个中心所有势力格清回 null，再用剩下的中心重新「填空」，就变成归最近的管。
-
-## owner_grid 存「行政中心 Construction 节点实例」而不是坐标（和 building_grid 一样是节点引用）：
-##   - 某个格子归哪个中心管 → 值 = 那个中心节点；无主 → null
-##   - 存节点的好处：拿格子归属直接就是实例，不用拿坐标再去 building_grid 反查中心；
-##     中心易手换阵营时节点不变，势力格子自动跟随；高亮渲染能直接 owner.get_squad_id() 上色。
-##   - 代价是引用生命周期：中心被移除(死亡)必须先清空它的格子再释放节点，否则 owner_grid
-##     会残留 freed 引用。中心死亡路径 = Construction._die → EventBus.center_destroyed → remove_center。
+class_name CenterOwnerManager extends Node
 
 const OWNER_RADIUS: int = 3   # 行政中心势力范围半径
 
 ## 已建的行政中心节点集合（Dictionary 当 HashSet 用，顺序无意义）
-var _centers: Dictionary = {}
+var centers: Dictionary = {}
 
 @onready var _construction_container: Node2D = %ConstrutionContainer
 
@@ -32,9 +19,9 @@ func _on_construct_build(resource: ConstructionResource, cell_pos: Vector2i) -> 
 	var center: Construction = ConstructionData.building_grid[cell_pos.x][cell_pos.y] as Construction
 	if center == null:
 		return
-	if _centers.has(center):
+	if centers.has(center):
 		return
-	_centers[center] = true
+	centers[center] = true
 	_fill_owner_for_new_center(center)
 
 ## 中心被移除(死亡)：Construction._die 在 queue_free 之前同步广播到这里，把势力格子清空重填，
@@ -59,15 +46,15 @@ func _fill_owner_for_new_center(new_center: Construction) -> void:
 	_sync_all_construction_owners()
 
 ## 拆中心：清掉这个中心的势力 → 用剩下的中心把空地重新「填空」（填最近的那个中心）
-func remove_center(center: Construction) -> void:
-	if center == null or not _centers.has(center):
+func remove_center(p_center: Construction) -> void:
+	if p_center == null or not centers.has(p_center):
 		return
-	_centers.erase(center)
+	centers.erase(p_center)
 	ConstructionData.ensure_owner_grid()
 	# 被拆中心管辖的格子必然在它势力半径内，只扫这一小片，不再全图遍历
 	var freed_cells: Array = []
-	for cell in PositionCaculater.search_closest_cell(center.cell, OWNER_RADIUS):
-		if ConstructionData.owner_grid[cell.x][cell.y] == center:
+	for cell in PositionCaculater.search_closest_cell(p_center.cell, OWNER_RADIUS):
+		if ConstructionData.owner_grid[cell.x][cell.y] == p_center:
 			ConstructionData.owner_grid[cell.x][cell.y] = null
 			freed_cells.append(cell)
 	# 把刚清出来的空格用剩下的中心重新填空（最近赢）
@@ -120,7 +107,7 @@ func refresh_all_teams() -> void:
 func _find_best_owner(cell: Vector2i):
 	var best_owner = null
 	var best_dist: int = OWNER_RADIUS + 1
-	for center in _centers.keys():
+	for center in centers.keys():
 		var c: Construction = center as Construction
 		if not is_instance_valid(c):
 			continue

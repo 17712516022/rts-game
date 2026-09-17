@@ -42,4 +42,4 @@ func _on_upgrade_pressed() -> void:
 	pass
 
 func _on_block_pressed() -> void:
-	pass
+	build._die()

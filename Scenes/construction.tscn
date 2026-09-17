@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cry371sok85qo" path="res://Scripts/floatlabel/FloatingLabelPool.gd" id="6_8h60d"]
 [ext_resource type="Texture2D" uid="uid://c2rxexqw6viqf" path="res://art/Simple_minimal_empty_circular__2026-08-24T12-17-06.png" id="6_77al2"]
 [ext_resource type="Script" uid="uid://8fdmp3amwegr" path="res://Scripts/Squad.gd" id="7_77al2"]
-[ext_resource type="Script" uid="uid://cw07i8wcw6qo3" path="res://Scripts/construction/SpawnSoiderAnimation.gd" id="8_5ijqk"]
+[ext_resource type="Script" uid="uid://cw07i8wcw6qo3" path="res://Scripts/spawnsoider/SpawnSoiderAnimation.gd" id="8_5ijqk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k3ob4"]
 radius = 27.018513

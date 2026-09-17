@@ -32,7 +32,12 @@ func _product(squad : TeamData.Team) -> void:
 		MaterialManager.receive_material(material, result ,squad)
 		
 		# 浮字要显示材料中文名：直接 str(枚举) 出来的是 "0/1/2"，玩家看不懂
-		floating_label_pool.show_label(construction.global_position, "+%.0f %s" % [result, MaterialManager.material_name(material)])
+		# 颜色由飘字层（FloatingLabelStyle）决定，这里只报"产了什么、多少"
+		floating_label_pool.show_label(
+			construction.global_position,
+			"+%.0f %s" % [result, MaterialManager.material_name(material)],
+			material
+		)
 
 ## month_passed 会为每个阵营各广播一轮：建筑只在自己阵营那一轮产出，
 ## 否则每轮都触发一次，产出会翻倍/错账。
