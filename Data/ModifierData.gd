@@ -94,4 +94,11 @@ const Modifiers : Dictionary={
 		"ProductionModifier" : 0.9,
 		"GoldModifier" : 0.2,
 	},
+	MapData.TERRAIN.RIVER : {
+		"ConstructModifier" : 0.0,
+		"MoveSpeedModifier" : 0.1,
+		"FoodModifier" : 0.0,
+		"ProductionModifier" : 0.0,
+		"GoldModifier" : 0.0,
+	},
 }

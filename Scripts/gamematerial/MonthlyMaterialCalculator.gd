@@ -1,19 +1,12 @@
 class_name MonthlyMaterialCalculator extends Node
-## 每月经济结算：收税 → 吃饭 → 人口增减。
-## TimeManager 每月为每个阵营各广播一轮，本节点每轮只结算被广播的那个阵营
-## （收入/扣费全部落在 squad 自己的账户上，玩家和 AI 走同一套规则）。
-## 挂 main.tscn，_ready 自动连 month_passed。
-##
-## 结算顺序：先收税、再吃饭。收税在前，避免"账上明明有钱却饿死"的观感。
-## 注意本节点是延后（call_deferred）结算的，见 _on_month_passed。
 
 # ————— 可调平衡常数（调经济就改这一段）—————
 ## 每人每月口粮消耗。人口 100 → 每月吃 10 食物
-const FOOD_PER_POP : float = 0.1
+const FOOD_PER_POP : float = 0.2
 ## 每人每月税收（金币）
 const BASE_TAX : float = 0.1
 ## 人口自然增长率（有粮、且未到人口上限时才生效）
-const BASE_PERCENT : float = 0.01
+const BASE_PERCENT : float = 0.05
 ## 每缺 1 食物饿死多少人
 const STARVE_PER_FOOD : float = 2.0
 ## 单月饿死人数上限（占总人口比例）：防止一次饥荒直接灭族
@@ -60,7 +53,7 @@ func _settle_food(squad : TeamData.Team) -> void:
 	if population <= 0.0:
 		return
 	var need : float = population * FOOD_PER_POP
-	var have := MaterialManager.get_material_number(MaterialManager.MATERIAL.FOOD, squad)
+	var have : float = MaterialManager.get_material_number(MaterialManager.MATERIAL.FOOD, squad)
 	if have >= need:
 		MaterialManager.spend_material(MaterialManager.MATERIAL.FOOD, need, squad)
 		_grow_population(squad, population)
@@ -71,7 +64,7 @@ func _settle_food(squad : TeamData.Team) -> void:
 
 ## 人口增长：有粮才长，且不超过"民居撑起来的上限"（只压增长，不强制下降）
 func _grow_population(squad : TeamData.Team, population : float) -> void:
-	var cap := _population_cap(squad)
+	var cap : float = _population_cap(squad)
 	if population >= cap:
 		return
 	var grow : float = population * BASE_PERCENT * popu_policy_modifier * popu_other_modifier

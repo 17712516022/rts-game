@@ -22,6 +22,13 @@ uniform int building_count = 0;
 uniform float building_inner = 260.0;  // 建筑照亮范围更大
 uniform float building_outer = 380.0;
 
+// ---------- 迷雾浓度（淡入用）----------
+// 整体浓度：0 = 迷雾完全透明（看得见地图），1 = 正常迷雾。
+// 由 Fog.gd 的 _fade_in 从 0 补间到 1，做出"迷雾渐渐浮上来"的效果。
+// 注意：不要试图用节点 modulate 做淡入 —— 本 shader 最后一行是 COLOR = col 整体覆盖，
+// 会把 modulate（顶点色）丢掉，所以淡入必须走这个 uniform。
+uniform float fog_alpha : hint_range(0.0, 1.0) = 1.0;
+
 // ---------- 迷雾覆盖的世界矩形 ----------
 // fog_origin = 左上角世界坐标，fog_size = 覆盖的世界宽高
 uniform vec2 fog_origin = vec2(0.0);
@@ -69,6 +76,7 @@ void fragment() {
 	// fract() 把坐标夹回 0~1：长时间运行不会因为浮点精度累积而抖动。
 	vec2 flow_uv = vec2(fract(UV.x - TIME * flow_speed), UV.y);
 	vec4 col = texture(TEXTURE, flow_uv);
-	col.a *= reveal;   // 被照亮的地方 alpha 变 0，露出下面的地图
+	col.a *= reveal;      // 被照亮的地方 alpha 变 0，露出下面的地图
+	col.a *= fog_alpha;   // 再乘整体浓度，淡入时整张迷雾一起变淡
 	COLOR = col;
 }

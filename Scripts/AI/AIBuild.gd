@@ -6,14 +6,18 @@ func _init(type : ConstructionData.Constructions) -> void:
 	building_type = type
 
 func execute(ctx : Dictionary) -> int:
-	var construction_manager := ctx.get("construction_manager") as ConstructionManager
+	var construction_manager : ConstructionManager = ctx.get("construction_manager") as ConstructionManager
 	if construction_manager == null:
 		return Status.FALIURE
 	
 	var squad : TeamData.Team = ctx.get("squad", TeamData.Team.ENEMY)
-	var centres := ctx.get("centres", []) as Array
+	var centres : Array = ctx.get("centres", []) as Array
 	
-	var cells : Array = AiTools.find_empty_cells(centres)
+	var cells : Array
+	if building_type == ConstructionData.Constructions.LOWERCENTER:
+		cells = AiTools.find_center_usable_cells(centres)
+	else :
+		cells = AiTools.find_empty_cells(centres)
 	if cells.is_empty():
 		return Status.FALIURE
 	

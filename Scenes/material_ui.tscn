@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://drnblbiqlfoy1" path="res://art/mine.png" id="4_5aq7s"]
 [ext_resource type="Texture2D" uid="uid://ccl28xq7p1rr" path="res://art/food.png" id="4_dsbcs"]
 [ext_resource type="Texture2D" uid="uid://ctkxygtyysdsi" path="res://art/population.png" id="6_5aq7s"]
+[ext_resource type="Script" uid="uid://cec83jovl681" path="res://Scripts/gamematerial/UseablePeopleUI.gd" id="7_fg1fk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_co6qv"]
 bg_color = Color(0.22, 0.09845, 0.032999996, 1)
@@ -141,3 +142,28 @@ custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 text = "1800"
 horizontal_alignment = 1
+
+[node name="UseAblePopulation" type="HBoxContainer" parent="PanelContainer/MarginlContainer/materialContainer" unique_id=1284234246]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = -12
+
+[node name="UseAblePopulationTextureRect" type="TextureRect" parent="PanelContainer/MarginlContainer/materialContainer/UseAblePopulation" unique_id=1229573198]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(40, 40)
+custom_maximum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_5aq7s")
+
+[node name="UseAblePopulationLabel" type="Label" parent="PanelContainer/MarginlContainer/materialContainer/UseAblePopulation" unique_id=127642766]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "1800"
+horizontal_alignment = 1
+
+[node name="UseablePeopleUI" type="Node" parent="." unique_id=229672908]
+script = ExtResource("7_fg1fk")
+metadata/_custom_type_script = "uid://cec83jovl681"

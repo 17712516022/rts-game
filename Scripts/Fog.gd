@@ -22,7 +22,7 @@ const FAR_AWAY := Vector2(1.0e7, 1.0e7)
 @export var flow_speed : float = 0.01
 @export_group("性能")
 ## 视野外扩多少像素内的单位也照样计入（防止边缘单位一进一出造成闪烁）
-@export var cull_margin : float = 400.0
+@export var cull_margin : float = 200.0
 
 var _mat : ShaderMaterial
 var _camera : Camera2D
@@ -35,14 +35,18 @@ var _bld_buf := PackedVector2Array()
 @onready var soider_container: Node2D = %SoiderContainer
 
 func _ready() -> void:
+	hide()
 	_mat = material
 	_mat.set_shader_parameter("flow_speed", flow_speed)
+	# 起始浓度 0：等 _fade_in 再补间到 1，做出迷雾渐渐浮上来的效果
+	_mat.set_shader_parameter("fog_alpha", 0.0)
 	
 	_unit_buf.resize(C_UNITS)
 	_bld_buf.resize(C_BUILDINGS)
 	
 	EventBus.game_ready.connect(_on_game_ready)
-
+	EventBus.player_has_ready.connect(_fade_in)
+	
 func _on_game_ready() -> void:
 	_mat.set_shader_parameter("unit_inner", unit_inner)
 	_mat.set_shader_parameter("unit_outer", unit_outer)
@@ -114,3 +118,14 @@ func _fill_player_points(container : Node2D, pts : PackedVector2Array,
 		n += 1
 	
 	return n
+
+## 淡入：把迷雾浓度 0 -> 1 补间一秒。
+## 注意不能补间节点的 modulate：shader 结尾是 COLOR = col 整体覆盖，
+## modulate（顶点色）会被丢掉，只有 shader 里的 fog_alpha 才真的能控制迷雾浓淡。
+func _fade_in() -> void:
+	show()
+	var tween : Tween = create_tween()
+	tween.tween_method(_set_fog_alpha, 0.0, 1.0, 2.0)
+
+func _set_fog_alpha(v : float) -> void:
+	_mat.set_shader_parameter("fog_alpha", v)

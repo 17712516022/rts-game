@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://dwidrkpg1ukp5" path="res://Scripts/make_construction/ConstructionDiscription.gd" id="2_jldwo"]
 [ext_resource type="Texture2D" uid="uid://bi0tm1tdv1qci" path="res://art/Empty_strategy_game_building_p_2026-08-24T10-51-46.png" id="2_vcyrl"]
 [ext_resource type="Texture2D" uid="uid://jvs8cyxl6hln" path="res://art/Empty_strategy_game_informatio_2026-08-24T11-07-23.png" id="3_s8gt7"]
-[ext_resource type="Texture2D" uid="uid://bdhslhs0k0xp2" path="res://art/construction/center.png" id="3_xw0ti"]
 [ext_resource type="Texture2D" uid="uid://l325il4xivd7" path="res://art/construction/lowercenter.png" id="4_noayh"]
 [ext_resource type="Texture2D" uid="uid://bkgn4pkoles5f" path="res://art/construction/farm.png" id="5_aiwfy"]
 [ext_resource type="Texture2D" uid="uid://busqrk7l1pclj" path="res://art/construction/resident.png" id="5_yrujd"]
@@ -62,14 +61,6 @@ theme_override_constants/margin_right = 12
 [node name="buttonsContainer" type="HFlowContainer" parent="Panel/VBox/MarginContainer" unique_id=1325449884]
 layout_mode = 2
 alignment = 1
-
-[node name="CenterButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=925543052]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(120, 30)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "行政中心"
-icon = ExtResource("3_xw0ti")
 
 [node name="SubCenterButton" type="Button" parent="Panel/VBox/MarginContainer/buttonsContainer" unique_id=110923045]
 unique_name_in_owner = true

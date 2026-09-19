@@ -1,15 +1,16 @@
 class_name EnemyCommander extends Node
 
-const TIME_WAIT_TIME := 2.0
+const TIME_WAIT_TIME : float = 5.0
 
 # —— 各资源"低于这个数就去补对应建筑"的门槛（想调策略改这里）——
-const GOLD_LOW := 300.0   # 敌人初始金 1000
-const MINE_LOW := 300.0   # 敌人初始矿 1000
-const WOOD_LOW := 300.0   # 敌人初始木 1000 
+const GOLD_LOW : float = 300.0   # 敌人初始金 1000
+const MINE_LOW : float = 300.0   # 敌人初始矿 1000
+const WOOD_LOW : float = 300.0   # 敌人初始木 1000 
+const GOLD_HIGH : float = 600.0
 
 var squad : TeamData.Team = TeamData.Team.ENEMY
 var construction_manager : ConstructionManager
-var start_cell : Vector2i = Vector2i(0, 0)
+var start_cell : Vector2i
 var centres : Array = []            # 已完工的自己的行政中心格子
 
 var root : BTSequnce                # 决策树的根：补建 → 攻击 → 设计，尽力全部推完
@@ -23,6 +24,7 @@ func _ready() -> void:
 	EventBus.team_refresh_requested.connect(_on_center_changed)
 
 func _on_game_ready() -> void:
+	start_cell = AiTools.find_start_cell()
 	# 建造管理器：必须挂到场景树 + 注入容器，否则内部 add_child 崩
 	construction_manager = ConstructionManager.new()
 	add_child(construction_manager)
@@ -42,6 +44,7 @@ func _on_tick() -> void:
 	var ctx := {
 		"gold": MaterialManager.get_material_number(MaterialManager.MATERIAL.GOLD, squad),
 		"gold_threshold": GOLD_LOW,
+		"build_new_center_gold" : GOLD_HIGH * centres.size(),
 		"mine": MaterialManager.get_material_number(MaterialManager.MATERIAL.MINE, squad),
 		"mine_threshold": MINE_LOW,
 		"wood": MaterialManager.get_material_number(MaterialManager.MATERIAL.WOOD, squad),
@@ -68,6 +71,7 @@ func _build_tree() -> void:
 	build_stage.add(_build_branch("mine", ConstructionData.Constructions.MINE))     # 缺矿 → 矿井(产矿)
 	build_stage.add(_build_branch("wood", ConstructionData.Constructions.TREE))     # 缺木 → 林场(产木)
 	build_stage.add(_build_branch("food", ConstructionData.Constructions.FARM))     # 缺食物 → 农场(产食物)
+	build_stage.add(BTCheckDistance.new("build_new_center_gold","gold" ).add(AIBuild.new(ConstructionData.Constructions.LOWERCENTER)))
 	build_stage.add(BTPass.new())
 	root.add(build_stage)
 	# —— 阶段② 攻击：敌方 < 我方 → 出兵；我方不占优 → 放行给设计 ——

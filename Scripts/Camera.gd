@@ -1,13 +1,13 @@
-extends Camera2D
+class_name Camera extends Camera2D
 ## 相机脚本：鼠标滚轮缩放地图
 
 # 缩放限制和速度
-const MIN_ZOOM := 0.2    # 最小放大到 0.1 倍（缩小地图，128 地图要看全得缩到这个程度）
-const MAX_ZOOM := 10.0    # 最大放大到 3 倍
-const ZOOM_STEP := 1.1   # 每滚一格缩放 1.1 倍
+const MIN_ZOOM : float = 0.2    # 最小放大到 0.2 倍（缩小地图，128 地图要看全得缩到这个程度）
+const MAX_ZOOM : float = 10.0    # 最大放大到 10 倍
+const ZOOM_STEP : float = 1.1   # 每滚一格缩放 1.1 倍
 
 # 是否正在按住鼠标中键拖拽视角
-var _dragging := false
+var _dragging : bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	# 处理鼠标按键：中键控制拖拽开关，滚轮负责缩放

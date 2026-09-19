@@ -53,6 +53,11 @@ signal hide_path_vfx
 @warning_ignore("unused_signal")
 signal select_the_soider
 
+## 选中士兵集合发生变化（选兵 / 框选为空 / 选中部队阵亡）时广播，不带参数：
+## 由 SoiderManager 的三个写入口统一发出，UI 订阅后去 SoiderManager 现读列表，不存快照。
+@warning_ignore("unused_signal")
+signal soider_selection_changed
+
 ## 士兵被成功创建并挂到容器后广播（玩家/敌人都发），参数是实例，供 AI 之类收集自己阵营的兵
 @warning_ignore("unused_signal")
 signal soider_spawned(soider : SoiderBottom,squad : TeamData.Team)
@@ -71,3 +76,11 @@ signal building_right_clicked(building : Construction)
 
 @warning_ignore("unused_signal")
 signal squad_lost(squad : TeamData.Team)
+
+## 可用人口刷新（给 UI）：occupied = 当前兵力占用，usable = 当前上限。
+## 两个数都是发信号那一刻现算的，收方直接显示，不要再去读缓存（避免显示过期数字）
+@warning_ignore("unused_signal")
+signal refresh_useable_people(occupied : float, usable : float)
+
+@warning_ignore("unused_signal")
+signal player_has_ready

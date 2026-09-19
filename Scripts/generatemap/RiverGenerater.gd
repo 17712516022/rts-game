@@ -1,11 +1,4 @@
 extends Node
-## 河流生成器（反算版）：先算出"每个格子到海要累计爬升多少海拔"，
-## 再从高山源头沿代价递减的方向一路走回海，标记出河道。
-## 好处：
-##   1. 河到海就停，永远不会在海里流。
-##   2. 路径逐格连续，不会隔空、不会断在内陆盆地（洼地格也会指向它的出水口）。
-##   3. 没有蓄水逻辑，不会铺出超大的湖。
-##   4. 蜿蜒：每步从到海代价最低的几个邻居里随机挑一个，保留自然弯曲。
 
 const GENERATE_RIVER_POSSIBILITY : float = 0.3  # 高地格子作为河源头的概率
 const MEANDER_CANDIDATES : int = 6                    # 从代价最低的多少个邻居里随机选，数字越大河越蜿蜒
@@ -41,15 +34,15 @@ func _generate_river() -> void:
 			if randf() > GENERATE_RIVER_POSSIBILITY:
 				continue
 			_follow_to_sea(Vector2i(row, line))
-
+	
+	for row in range(MapData.map_height):
+		for col in range(MapData.map_width):
+			if MapData.river_grid[row][col]:
+				MapData.terrain_grid[row][col] = MapData.TERRAIN.RIVER
+	
 	# 4. 全部河道标记完成，通知地图重绘，把河道画出来
 	EventBus.rivers_generated.emit()
 
-# 多源 Dijkstra：源 = 所有海洋格（代价 0）。
-# 走一步到邻居的代价 = 上升的海拔（下坡和平路免费，上坡才算钱），
-# 所以每个格子的代价就是"从这里爬到海要累计上升多少"。
-# 同时记录每个格子到海的步数（dist_grid），步数不限代价，供源头过滤用。
-# 用二叉堆做优先队列，保证每个格子记录到的是全局最小的爬坡代价。
 func _compute_cost_to_sea() -> void:
 	cost_grid.clear()
 	dist_grid.clear()
@@ -96,7 +89,6 @@ func _is_local_peak(cell: Vector2i) -> bool:
 
 # 从源头出发，沿着"到海代价"单调递减的方向一路走回海。
 # 每步从代价最低的几个邻居里随机挑一个，制造蜿蜒。
-# 走到海（或走投无路、超长）就停；海格不标记为河。
 func _follow_to_sea(start: Vector2i) -> void:
 	var current : Vector2i = start
 	var steps := 0

@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://d4g7vr0ad6ojw" path="res://Scripts/GameOver/GameOver.gd" id="18_b3802"]
 [ext_resource type="Script" uid="uid://dkwio1tjl6ewy" path="res://Scripts/TargetMarker.gd" id="19_fevyy"]
 [ext_resource type="Texture2D" uid="uid://b7y8yfjxi2iv1" path="res://art/targetmarker.png" id="19_hibaj"]
+[ext_resource type="Script" uid="uid://xyqe1wuvj71h" path="res://Scripts/gamematerial/UseablePeople.gd" id="21_pdsj5"]
 
 [sub_resource type="Curve" id="Curve_jkdf5"]
 _data = [Vector2(0, 0.50209206), 0.0, 0.0, 0, 0, Vector2(0.49866667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.50209206), 0.0, 0.0, 0, 0]
@@ -35,6 +36,7 @@ shader_parameter/building_points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0,
 shader_parameter/building_count = 0
 shader_parameter/building_inner = 260.0
 shader_parameter/building_outer = 380.0
+shader_parameter/fog_alpha = 1.0
 shader_parameter/fog_origin = Vector2(0, 0)
 shader_parameter/fog_size = Vector2(1, 1)
 shader_parameter/flow_speed = 0.05000000074506
@@ -72,6 +74,7 @@ metadata/_custom_type_script = "uid://d4li5u3qnv8t1"
 script = ExtResource("5_0rqxg")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=146168937]
+unique_name_in_owner = true
 editor_draw_limits = true
 script = ExtResource("2_bo1nx")
 
@@ -143,3 +146,8 @@ scale = Vector2(2, 2)
 texture = ExtResource("19_hibaj")
 script = ExtResource("19_fevyy")
 metadata/_custom_type_script = "uid://dkwio1tjl6ewy"
+
+[node name="UseablePeople" type="Node" parent="." unique_id=2112214026]
+unique_name_in_owner = true
+script = ExtResource("21_pdsj5")
+metadata/_custom_type_script = "uid://xyqe1wuvj71h"

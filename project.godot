@@ -29,6 +29,7 @@ DamageCalculator="*uid://ej0rgmeffnfp"
 TeamData="*uid://hoq0fylrw7oo"
 AiTools="*uid://l4avadj2u0nt"
 SoiderSeparation="*uid://dbd7wv3glpk20"
+TimeManager="*uid://b3l1tj1shsxtr"
 
 [display]
 

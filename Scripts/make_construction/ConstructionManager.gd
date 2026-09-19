@@ -42,7 +42,7 @@ func try_build(cell: Vector2i, building_type: ConstructionData.Constructions, ou
 	return true
 
 # 在指定格子中心实例化一个建筑节点，把图标显示到地图上
-func _spawn_building(cell: Vector2i, resource: ConstructionResource, team: int = TeamData.Team.PLAYER) -> void:
+func _spawn_building(cell: Vector2i, resource: ConstructionResource, team: TeamData.Team = TeamData.Team.PLAYER) -> void:
 	var building: Construction = CONSTRUCTION_SCENE.instantiate()
 	building.set_resource(resource)
 	building.cell = cell

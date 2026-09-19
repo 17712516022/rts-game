@@ -15,12 +15,21 @@ func _ready() -> void:
 func add_to_selecting_soider(soider : SoiderBottom) -> void:
 	soider_selecting.clear()
 	soider_selecting.append(soider)
+	_notify_selection_changed()
 
 func set_selecting_soiders(soiders : Array) -> void:
 	soider_selecting = soiders.duplicate()
+	_notify_selection_changed()
 
 func delete_from_selecting_soider(soider : SoiderBottom) -> void:
 	soider_selecting.erase(soider)
+	_notify_selection_changed()
+
+## 选中集合的唯一出口：三个写入口末尾都广播，UI 只订阅它就不会漏掉
+## “框选为空”“选中部队阵亡”这两种没人主动通知的情况。
+## 信号不带列表快照，收方自己去 get_current_soiders() 现读，避免拿到过期数据。
+func _notify_selection_changed() -> void:
+	EventBus.soider_selection_changed.emit()
 
 func get_current_soiders() -> Array:
 	return soider_selecting

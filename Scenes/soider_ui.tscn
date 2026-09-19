@@ -2,6 +2,20 @@
 
 [ext_resource type="Script" uid="uid://dbsr2whir2dga" path="res://Scripts/soidercontrol/SoiderPanel.gd" id="1_tgr2l"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmixe"]
+bg_color = Color(0.31408945, 0.23937717, 0.21643975, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_size = 3
+
 [node name="SoiderUi" type="Control" unique_id=330512019]
 layout_mode = 3
 anchors_preset = 15
@@ -9,17 +23,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_tgr2l")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1253173801]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mmixe")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=943531770]
 layout_mode = 2
 
+[node name="SoiderUiRichText" type="RichTextLabel" parent="PanelContainer/VBoxContainer" unique_id=2012060009]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "当前拥有"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
 [node name="DiscordSoiderButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1455589712]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 8
 text = "取消选择"

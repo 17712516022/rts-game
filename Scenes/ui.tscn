@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c1bss63p0trf3" path="res://Scenes/design_panel.tscn" id="6_smcll"]
 [ext_resource type="PackedScene" uid="uid://c5cy1842ef64n" path="res://Scenes/soider_ui.tscn" id="7_smcll"]
 [ext_resource type="PackedScene" uid="uid://ybqg3rcsnfja" path="res://Scenes/game_over_ui.tscn" id="8_ryf15"]
+[ext_resource type="PackedScene" uid="uid://d00vfnk1efrm2" path="res://Scenes/gamereadyui.tscn" id="9_mmixe"]
 
 [node name="ui" type="CanvasLayer" unique_id=1395313548]
 script = ExtResource("1_m78vo")
@@ -20,15 +21,23 @@ mouse_filter = 2
 
 [node name="BuildsPanel" parent="." unique_id=1360356493 instance=ExtResource("3_nf4gj")]
 
-[node name="TimeManager" parent="." unique_id=884157805 instance=ExtResource("4_2246s")]
-
 [node name="DesignPanel" parent="." unique_id=1093799930 instance=ExtResource("6_smcll")]
 
 [node name="SoiderUi" parent="." unique_id=330512019 instance=ExtResource("7_smcll")]
+custom_minimum_size = Vector2(210, 0)
+custom_maximum_size = Vector2(210, -1)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
+offset_left = 39.0
+offset_right = 249.0
+offset_bottom = 59.0
 grow_vertical = 1
 
 [node name="GameOverUi" parent="." unique_id=615139264 instance=ExtResource("8_ryf15")]
+visible = false
+
+[node name="TimeUI" parent="." unique_id=884157805 instance=ExtResource("4_2246s")]
+
+[node name="GameStartUI" parent="." unique_id=2090144463 instance=ExtResource("9_mmixe")]

@@ -5,6 +5,8 @@ const SOIDER_SCENE := preload("res://Scenes/soiderbottom.tscn")
 var soider_fac : SoiderFactory = SoiderFactory.new()
 ## 士兵节点挂载的容器（场景预设 %SoiderContainer）
 @onready var soider_container : Node2D = %SoiderContainer
+## 可用人口上限的持有者（场景预设 %UseablePeople）：出兵前问它会不会超编
+@onready var useable_people : UseablePeople = %UseablePeople
 
 func _ready() -> void:
 	EventBus.spawn_soider.connect(_on_spawn_soider)
@@ -17,6 +19,11 @@ func _on_spawn_soider(turret_choices : Array, bottom : SoiderComponentData.BOTTO
 	
 	var ress : Dictionary = soider_fac.get_designed_soider_res(turret_choices, bottom)
 	if ress.is_empty():
+		return
+	
+	# 人口闸口：把这个兵也算进去后超编就出兵失败（玩家/敌人共用同一道限制）
+	var bottom_res : SoiderBottomResource = ress["bottom"]
+	if not useable_people.can_spawn(bottom_res.cost_population, squad):
 		return
 	
 	var costs : Dictionary = SoiderDesign.merge_cost(ress["bottom"], ress["turrets"])

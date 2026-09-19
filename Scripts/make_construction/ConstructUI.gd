@@ -6,7 +6,6 @@ class_name ConstructUI extends Control
 @onready var terrain_label: Label = %TerrainLabel
 @onready var position_label: Label = %PositionLabel
 @onready var close_button: Button = %CloseButton
-@onready var center_button: Button = %CenterButton
 @onready var sub_center_button: Button = %SubCenterButton
 @onready var house_button: Button = %HouseButton
 @onready var farm_button: Button = %FarmButton
@@ -23,8 +22,10 @@ var construction_manager : ConstructionManager
 
 var squad : TeamData.Team = TeamData.Team.PLAYER
 
+## 按钮 -> 配置。
+## 注意：行政中心不在表里，也不该再回来——玩家不能主动建它，
+## 全图只有开局准备界面（GameReadyUi）点「确定」发放的那一个，之后靠次级行政中心扩张。
 @onready var _button_res_map: Dictionary = {
-	center_button: {"res": ConstructionData.CENTER_RES, "type": ConstructionData.Constructions.CENTER},
 	sub_center_button: {"res": ConstructionData.LOWERCENTER_RES, "type": ConstructionData.Constructions.LOWERCENTER},
 	house_button: {"res": ConstructionData.RESIDENT_RES, "type": ConstructionData.Constructions.RESIDENT},
 	farm_button: {"res": ConstructionData.FARM_RES, "type": ConstructionData.Constructions.FARM},

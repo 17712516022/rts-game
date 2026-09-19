@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dcntw07m2nu83"]
 
-[ext_resource type="Script" uid="uid://b3l1tj1shsxtr" path="res://Scripts/TimeManager.gd" id="1_t1xxb"]
+[ext_resource type="Script" uid="uid://o46erlef8yw5" path="res://Scenes/TimeUI.gd" id="1_t1xxb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjxql"]
 bg_color = Color(0.803386, 0.52908903, 0.2946599, 1)
@@ -12,7 +12,7 @@ border_color = Color(0.25, 0.09, 0.09, 1)
 border_blend = true
 shadow_size = 3
 
-[node name="TimeManager" type="Control" unique_id=884157805]
+[node name="TimeUI" type="Control" unique_id=884157805]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0

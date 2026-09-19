@@ -22,6 +22,8 @@ func _on_select_one_cell(cell : Vector2i) -> void:
 	build  = ConstructionData.building_grid[cell.x][cell.y]
 	if build == null:
 		return
+	if build.get_squad_id() != TeamData.Team.PLAYER:
+		return
 	
 	build_res = build.res
 	build_texture.texture = build_res.texture

@@ -33,10 +33,9 @@ func _build_mesh() -> void:
 		for col in range(MapData.map_width):
 			var center : Vector2 = PositionCaculater.calculate_position(row, col)
 			var points : Array = hex_corners(center)
-			# 先按地形拿颜色；如果是河流格，改画河流色（盖在地形上面）
+			# 先按地形拿颜色
 			var color : Color = MapData.TERRAIN_COLORS[MapData.terrain_grid[row][col]]
-			if not MapData.river_grid.is_empty() and MapData.river_grid[row][col]:
-				color = MapData.RIVER_COLOR
+			
 			# 一个六边形拆成 6 个三角形：中心连相邻两个顶点
 			for i in range(6):
 				var next : int = (i + 1) % 6

@@ -1,7 +1,7 @@
 extends Node
 
 enum MATERIAL {
-	GOLD, FOOD, WOOD, MINE,POPULATION
+	GOLD, FOOD, WOOD, MINE,POPULATION,USABLE_POPULATION
 }
 
 ## 材料 → 中文显示名（UI / 浮动文字 / 面板描述统一用这里，不要再各写一份 match）
@@ -11,6 +11,7 @@ const MATERIAL_NAMES : Dictionary = {
 	MATERIAL.WOOD : "木材",
 	MATERIAL.MINE : "矿石",
 	MATERIAL.POPULATION : "人口",
+	MATERIAL.USABLE_POPULATION : "可用人口",
 }
 
 var START_MATERIAL : Dictionary = {
@@ -20,13 +21,15 @@ var START_MATERIAL : Dictionary = {
 		MATERIAL.WOOD : 100.0,
 		MATERIAL.MINE : 50.0,
 		MATERIAL.POPULATION : 100.0,
+		MATERIAL.USABLE_POPULATION : 1.0
 	},
 	TeamData.Team.ENEMY : {
-		MATERIAL.GOLD : 300.0,
+		MATERIAL.GOLD : 1000.0,
 		MATERIAL.FOOD : 300.0,
 		MATERIAL.WOOD : 300.0,
 		MATERIAL.MINE : 300.0,
-		MATERIAL.POPULATION : 1000.0,
+		MATERIAL.POPULATION : 100.0,
+		MATERIAL.USABLE_POPULATION : 1.0,
 	},
 }
 
@@ -41,6 +44,11 @@ func _ready() -> void:
 func get_material_number(material : MATERIAL , squad : TeamData.Team) -> float:
 	assert(squads_material[squad].has(material) , "出错了")
 	return squads_material[squad][material]
+
+func set_material_number(material : MATERIAL , squad : TeamData.Team ,value : float) -> void:
+	assert(squads_material[squad].has(material) , "出错了")
+	squads_material[squad][material] = value
+	EventBus.material_changed.emit(material, squads_material[squad][material], squad)
 
 # 花费资源：从现有数量里扣掉 value，数量最低扣到 0
 func spend_material(material : MATERIAL , value : float,squad : TeamData.Team) -> void :
@@ -58,7 +66,6 @@ func can_spend(material : MATERIAL ,value : float,squad : TeamData.Team) -> bool
 	assert(squads_material[squad].has(material) , "出错了")
 	# 余额刚好等于花费也允许（花完正好变 0，和 spend_material 的 maxf 行为一致）
 	return squads_material[squad][material] - value >= 0
-
 
 ## 能不能付得起这份账单（不扣钱，用于按钮置灰 / 预览）
 func can_afford(costs : Dictionary, squad : TeamData.Team) -> bool:

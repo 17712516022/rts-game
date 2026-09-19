@@ -12,6 +12,8 @@ const HIGHERMOUNT_LEVEL : float = 1.0 # 高山
 
 # ============ 地形类型 ============
 enum TERRAIN {
+	RIVER, #河流
+	
 	DEEPSEE , #深海
 	NORMALSEE ,  # 海洋
 	CLOSESEE, #近海
@@ -37,6 +39,8 @@ enum TERRAIN {
 # ============ 每种地形显示用的颜色 ============
 # 以后换成贴图时，这里改成纹理路径即可
 const TERRAIN_COLORS := {
+	TERRAIN.RIVER : Color(0.35, 0.62, 0.95),
+	
 	# 海洋（海拔越低越深，颜色越暗）：深海最暗 -> 海洋 -> 近海最亮
 	TERRAIN.DEEPSEE: Color(0.0, 0.2, 0.4),
 	TERRAIN.NORMALSEE: Color(0.1, 0.3, 0.5),
@@ -67,15 +71,12 @@ var terrain_grid : Array = []   # 地形表，grid[行][列] = 地形类型，�
 var elevation_grid : Array = [] #海拔表
 var weather_grid : Array = [] #气候表
 var river_grid : Array = []   # 河流标记表，river_grid[行][列] = true 表示这格是河道，由 RiverGenerater 写入
-
-# 河流的颜色（比海洋浅一点的蓝，方便和海水区分）
-const RIVER_COLOR := Color(0.35, 0.62, 0.95)
-
 # ============ 玩家当前选中的格子（点击时由 Map 脚本写入） ============
 var selected_cell: Vector2i = Vector2i(-1, -1)   # x 是行、y 是列，(-1,-1) 表示还没选过
 
 # ============ 每种地形对应的名字（方便打印和以后做界面） ============
 const TERRAIN_NAMES := {
+	TERRAIN.RIVER : "河流",
 	TERRAIN.DEEPSEE: "深海",
 	TERRAIN.NORMALSEE: "海洋",
 	TERRAIN.CLOSESEE: "近海",
