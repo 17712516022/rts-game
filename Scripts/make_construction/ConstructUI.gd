@@ -31,6 +31,7 @@ var squad : TeamData.Team = TeamData.Team.PLAYER
 	farm_button: {"res": ConstructionData.FARM_RES, "type": ConstructionData.Constructions.FARM},
 	mine_button: {"res": ConstructionData.MINE_RES, "type": ConstructionData.Constructions.MINE},
 	barracks_button: {"res": ConstructionData.ARMY_RES, "type": ConstructionData.Constructions.ARMY},
+	port_button: {"res": ConstructionData.PORT_RES, "type": ConstructionData.Constructions.PORT},
 	tree_button : {"res" : ConstructionData.TREE_RES, "type" : ConstructionData.Constructions.TREE},
 }
 
@@ -49,8 +50,8 @@ func _ready() -> void:
 		btn.pressed.connect(func(): _try_build(type))
 		btn.mouse_entered.connect(func(): construction_discription.show_panel(res, btn.global_position.y))
 		btn.mouse_exited.connect(construction_discription.hide_panel)
-	# 港口还没有对应的 .tres 资源，先禁用
-	port_button.disabled = true
+	# 港口按钮的图标直接取配置里的贴图：以后换美术只要改 Port.tres 一处
+	port_button.icon = ConstructionData.PORT_RES.texture
 
 # 外部注入：传进来建造管理器和建筑容器节点
 func SetUp(manager: ConstructionManager, context_construction_container : Node2D) -> void:

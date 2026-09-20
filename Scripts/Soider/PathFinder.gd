@@ -69,8 +69,10 @@ func find_path(start: Vector2i, end: Vector2i, squad_id: int = -1) -> Array:
 	return []  # 开放表耗尽仍无路
 
 ## 单格通行代价：1.0 / 移动速度系数（速度 0 = 不可通行）
+## 系数统一走 WaterData：通航水道（有建成港口的中心辖区里的河流格）= 1.0，
+## 和 Mover.get_speed 用的是同一个数，寻路算"好走"的地方实际也走得快。
 func _cell_cost(cell: Vector2i) -> float:
-	var ms: float = ModifierData.Modifiers[MapData.terrain_grid[cell.x][cell.y]]["MoveSpeedModifier"]
+	var ms: float = WaterData.get_move_speed_modifier(cell)
 	if ms <= 0.0:
 		return INF
 	return 1.0 / ms

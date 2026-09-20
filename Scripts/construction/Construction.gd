@@ -140,6 +140,10 @@ func _die() -> void:
 	# 它辖下所有格子的归属并重填，再 queue_free。owner_grid 存的是中心节点引用，
 	if is_center():
 		EventBus.center_destroyed.emit(self)
-	
+	# 所有建筑死亡都广播（港口、兵营被拆也要有人知道）：
+	# 这一发必须留在 if 外面，否则非中心建筑死了没有任何通知，
+	# 依赖"建筑没了"来刷新界面的订阅方（如 WaterVFX 的港口航路）会一直显示过期结果。
+	EventBus.construction_destroyed.emit(self)
+
 	ConstructionData.unindex_building(self)
 	queue_free()

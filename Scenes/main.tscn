@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://fyqnqmenb367" path="res://Scripts/generatemap/ElevationGenerater.gd" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://dkg3p4f4kk84e" path="res://Scripts/Camera.gd" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://d4li5u3qnv8t1" path="res://Scripts/generatemap/WeatherGenerater.gd" id="3_21xkr"]
-[ext_resource type="Script" uid="uid://divwjqnuqs2om" path="res://Scripts/HighLighter.gd" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://divwjqnuqs2om" path="res://Scripts/VFX/HighLighter.gd" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://c0orya0a8bumu" path="res://Scripts/generatemap/RiverGenerater.gd" id="5_0rqxg"]
 [ext_resource type="Script" uid="uid://dptwq8a0mwdc6" path="res://Scripts/generatemap/MapGenerater.gd" id="6_xht2m"]
 [ext_resource type="PackedScene" uid="uid://bt4w7ajb41b5j" path="res://Scenes/ui.tscn" id="8_ynf5e"]
@@ -13,12 +13,14 @@
 [ext_resource type="Script" uid="uid://ctbgf78qx3i6k" path="res://Scripts/construction/PolicyHighLighter.gd" id="13_policy"]
 [ext_resource type="Script" uid="uid://cmco6m21tk2qd" path="res://Scripts/construction/CenterOwnershipManager.gd" id="14_owner_mgr"]
 [ext_resource type="Script" uid="uid://brwcbmy37yq1r" path="res://Scripts/GameBootstrap.gd" id="15_bootstrap"]
+[ext_resource type="Script" uid="uid://dv8lg4a6fn2xe" path="res://Scripts/VFX/PathLineVFX.gd" id="15_ee4r6"]
 [ext_resource type="Script" uid="uid://xie4sm1njphb" path="res://Scripts/AI/EnemyCommander.gd" id="15_wsu2k"]
-[ext_resource type="Script" uid="uid://ouxd7acirx6r" path="res://Scripts/Fog.gd" id="16_k12tt"]
-[ext_resource type="Script" uid="uid://dmo4x04ymw75y" path="res://Scripts/VFXManager.gd" id="16_pp"]
+[ext_resource type="Script" uid="uid://diull1550gaab" path="res://Scripts/VFX/WaterVFX.gd" id="16_gt3je"]
+[ext_resource type="Script" uid="uid://ouxd7acirx6r" path="res://Scripts/VFX/Fog.gd" id="16_k12tt"]
+[ext_resource type="Script" uid="uid://dmo4x04ymw75y" path="res://Scripts/VFX/VFXManager.gd" id="16_pp"]
 [ext_resource type="Shader" uid="uid://gyvj4ytmhpae" path="res://shader/fog.gdshader" id="17_h1bgf"]
 [ext_resource type="Script" uid="uid://d4g7vr0ad6ojw" path="res://Scripts/GameOver/GameOver.gd" id="18_b3802"]
-[ext_resource type="Script" uid="uid://dkwio1tjl6ewy" path="res://Scripts/TargetMarker.gd" id="19_fevyy"]
+[ext_resource type="Script" uid="uid://dkwio1tjl6ewy" path="res://Scripts/VFX/TargetMarker.gd" id="19_fevyy"]
 [ext_resource type="Texture2D" uid="uid://b7y8yfjxi2iv1" path="res://art/targetmarker.png" id="19_hibaj"]
 [ext_resource type="Script" uid="uid://xyqe1wuvj71h" path="res://Scripts/gamematerial/UseablePeople.gd" id="21_pdsj5"]
 
@@ -121,6 +123,12 @@ width = 6.0
 width_curve = SubResource("Curve_jkdf5")
 default_color = Color(0.9, 0.396, 0.396, 0.9019608)
 antialiased = true
+script = ExtResource("15_ee4r6")
+
+[node name="WaterVFX" type="Node2D" parent="VFXManager" unique_id=787566471]
+unique_name_in_owner = true
+z_index = -1
+script = ExtResource("16_gt3je")
 
 [node name="EnemyCommander" type="Node" parent="." unique_id=735118062]
 script = ExtResource("15_wsu2k")

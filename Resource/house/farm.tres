@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_fmu0k")
 display_name = "农场"
+description = "开垦田地种植粮食，为领地提供稳定的食物产出。"
 time = 5.0
 health = 100.0
 cost_gold = 30.0

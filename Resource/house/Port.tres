@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://clplrxwembhv8"]
+
+[ext_resource type="Script" uid="uid://cj1dj4te55yos" path="res://Resource/house/ConstructionResource.gd" id="1_port"]
+[ext_resource type="Texture2D" uid="uid://mosbp6m3kiif" path="res://art/construction/port.png" id="2_xfj8e"]
+
+[resource]
+script = ExtResource("1_port")
+display_name = "港口"
+description = "临水而建的贸易港口，只能建在紧邻水体（河流 / 浅海）的格子上，为领地带来稳定的金币收入。"
+time = 6.0
+health = 100.0
+cost_gold = 60.0
+cost_wood = 40.0
+output_gold = 5.0
+texture = ExtResource("2_xfj8e")
+metadata/_custom_type_script = "uid://cj1dj4te55yos"

@@ -6,6 +6,9 @@ class_name ConstructionResource extends Resource
 ## 建造时 ConstructionFactory 会给每栋建筑 duplicate() 一份配置，副本引用永远不比中模板。
 @export var display_name : String = ""
 
+## 建筑简介：面板里展示给玩家的一句话说明
+@export_multiline var description : String = ""
+
 ## 是不是行政中心类建筑（行政中心 / 次级行政中心都会划领地、可易手）
 func is_center_kind() -> bool:
 	return display_name == "行政中心" or display_name == "次级行政中心"
@@ -56,32 +59,20 @@ func output_enum() -> Dictionary:
 		result[MaterialManager.MATERIAL.MINE] = output_mine
 	return result
 
-## 静态：算实际建造时间 = base × (1/ConstructModifier) × policy_modifier
-## ConstructModifier 是"建造速度"（越高越快），取倒数转成"时间修正"（越高越慢）
+## 静态：算实际建造时间 = base × 建造时间修正 × policy_modifier
+## 地形基值 + 政策/事件等各层修正统一由 FinalModifierCalculator 合成。
+## ConstructModifier 是"建造速度"（越高越快），所以取 1/速度 转成"时间修正"（越高越慢）。
 ## 任何地方都能调：Construction.gd 实例化时、ConstructionDiscription 面板显示时
 static func calculate_build_time(base_time: float, terrain: MapData.TERRAIN, policy_modifier: float = 1.0) -> float:
-	var construct_mod: float = ModifierData.Modifiers[terrain]["ConstructModifier"]
-	# 防御：construct_mod <= 0 表示不能建（海洋等），理论上游上层已挡，兜底返回 base
-	if construct_mod <= 0.0:
+	var time_modifier := FinalModifierCalculator.build_time_multiplier(terrain)
+	# 防御：不能建的地形（海洋/河流等）返回 INF，上游本该已挡，这里退回 base 免得算出 Inf
+	if not is_finite(time_modifier):
 		return base_time
-	var terrain_modifier := 1.0 / construct_mod
-	return base_time * terrain_modifier * policy_modifier
+	return base_time * time_modifier * policy_modifier
 
-## 静态：算实际产出 = base_value × 地形修正 × 政策修正
-## 地形修正按材料类型从 ModifierData 取（金→GoldModifier, 食→FoodModifier, 矿→ProductionModifier, 木→1.0）
+## 静态：算实际产出 = base_value × 最终产出修正 × policy_modifier
+## 产出修正按材料类型查（金→GoldModifier, 食→FoodModifier, 矿→ProductionModifier, 木→WoodModifier），
+## 地形基值 × 政策/事件等各层修正都由 FinalModifierCalculator 合成，调用方不再自己乘
 static func calculate_output(base_value: float, material: MaterialManager.MATERIAL, terrain: MapData.TERRAIN, police_modifier: float = 1.0) -> float:
-	var terrain_mod := _terrain_output_modifier(material, terrain)
-	return base_value * terrain_mod * police_modifier
-
-## 静态私有：按材料类型 + 地形查产出系数（从 OutputProductor 搬来的 match 逻辑）
-static func _terrain_output_modifier(material: MaterialManager.MATERIAL, terrain: MapData.TERRAIN) -> float:
-	match material:
-		MaterialManager.MATERIAL.GOLD:
-			return ModifierData.Modifiers[terrain]["GoldModifier"]
-		MaterialManager.MATERIAL.FOOD:
-			return ModifierData.Modifiers[terrain]["FoodModifier"]
-		MaterialManager.MATERIAL.MINE:
-			return ModifierData.Modifiers[terrain]["ProductionModifier"]
-		MaterialManager.MATERIAL.WOOD:
-			return 1.0
-	return 1.0
+	var output_modifier := FinalModifierCalculator.output_factor(material, terrain)
+	return base_value * output_modifier * police_modifier

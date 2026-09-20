@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_uuwhi")
 display_name = "民居"
+description = "居民聚居之地，为领地带来稳定的金币收入。"
 time = 5.0
 health = 100.0
 cost_gold = 40.0

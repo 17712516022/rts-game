@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dcntw07m2nu83"]
 
-[ext_resource type="Script" uid="uid://o46erlef8yw5" path="res://Scenes/TimeUI.gd" id="1_t1xxb"]
+[ext_resource type="Script" uid="uid://o46erlef8yw5" path="res://Scripts/TimeUI.gd" id="1_t1xxb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjxql"]
 bg_color = Color(0.803386, 0.52908903, 0.2946599, 1)

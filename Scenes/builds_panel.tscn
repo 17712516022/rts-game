@@ -1,48 +1,163 @@
 [gd_scene format=3 uid="uid://d0ssk8h8ovl4b"]
 
 [ext_resource type="Script" uid="uid://ds345sgc3ijlc" path="res://Scripts/BuildsPanel.gd" id="1_5sqg4"]
-[ext_resource type="Texture2D" uid="uid://ddbkqyls83gmm" path="res://art/Empty_building_information_pan_2026-08-29T07-23-29.png" id="2_bnt2g"]
 [ext_resource type="Texture2D" uid="uid://bkgn4pkoles5f" path="res://art/construction/farm.png" id="3_bnt2g"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ul0m8"]
-texture = ExtResource("2_bnt2g")
-expand_margin_left = 30.0
-expand_margin_top = 50.0
-expand_margin_right = 30.0
-expand_margin_bottom = 60.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fg1fk"]
-bg_color = Color(0.63552904, 0.3693394, 0.17841005, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjxql"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.152, 0.094, 0.055, 0.97)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.35068944, 0.21296158, 0.12759542, 1)
-border_blend = true
-shadow_size = 2
+border_color = Color(0.741, 0.537, 0.235, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 14
+shadow_offset = Vector2(0, 5)
 
-[sub_resource type="Theme" id="Theme_5aq7s"]
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_fg1fk")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_title"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.647, 0.458, 0.184, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.855, 0.667, 0.325, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frame"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.086, 0.051, 0.027, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.741, 0.537, 0.235, 0.85)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="Gradient" id="Gradient_1krex"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0.33175027, 0.26607275, 1)
+offsets = PackedFloat32Array(0, 0)
+colors = PackedColorArray(0.255, 0.11, 0.075, 1, 0.137, 0.067, 0.043, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_gjxql"]
 gradient = SubResource("Gradient_1krex")
 
 [sub_resource type="Gradient" id="Gradient_qmfst"]
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+colors = PackedColorArray(1, 1, 1, 0.22, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yddip"]
 gradient = SubResource("Gradient_qmfst")
 
 [sub_resource type="Gradient" id="Gradient_hg6dg"]
 offsets = PackedFloat32Array(0, 0.98697066)
-colors = PackedColorArray(0, 1, 0, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0.851, 0.239, 0.145, 1, 0.961, 0.784, 0.251, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_co6qv"]
 gradient = SubResource("Gradient_hg6dg")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yddip"]
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+bg_color = Color(0.22, 0.137, 0.078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.478, 0.333, 0.157, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fg1fk"]
+content_margin_left = 16.0
+content_margin_top = 7.0
+content_margin_right = 16.0
+content_margin_bottom = 7.0
+bg_color = Color(0.545, 0.361, 0.161, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.306, 0.196, 0.086, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btnpress"]
+content_margin_left = 16.0
+content_margin_top = 7.0
+content_margin_right = 16.0
+content_margin_bottom = 7.0
+bg_color = Color(0.435, 0.278, 0.118, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.259, 0.165, 0.071, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btnhover"]
+content_margin_left = 16.0
+content_margin_top = 7.0
+content_margin_right = 16.0
+content_margin_bottom = 7.0
+bg_color = Color(0.678, 0.463, 0.212, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.855, 0.643, 0.302, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btnfocus"]
+bg_color = Color(0.545, 0.361, 0.161, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.8, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="BuildsPanel" type="Control" unique_id=1360356493]
 layout_mode = 3
@@ -55,83 +170,132 @@ mouse_filter = 2
 script = ExtResource("1_5sqg4")
 
 [node name="buildspanel" type="PanelContainer" parent="." unique_id=90175349]
-custom_minimum_size = Vector2(240, 240)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -320.0
-offset_top = -320.0
+offset_left = -348.0
+offset_top = -452.0
+offset_right = -14.0
+offset_bottom = -14.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_ul0m8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gjxql")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="buildspanel" unique_id=421883501]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 8
 
-[node name="BuildTexture" type="TextureRect" parent="buildspanel/VBoxContainer" unique_id=1339720699]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 160)
+[node name="TitleBar" type="PanelContainer" parent="buildspanel/VBoxContainer" unique_id=1039570073]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_title")
+
+[node name="Title" type="Label" parent="buildspanel/VBoxContainer/TitleBar" unique_id=163099959]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.937, 0.827, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.4)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 20
+text = "建筑详情"
+horizontal_alignment = 1
+
+[node name="TextureFrame" type="PanelContainer" parent="buildspanel/VBoxContainer" unique_id=628031078]
 layout_mode = 2
 size_flags_horizontal = 4
-offset_transform_enabled = true
-offset_transform_position = Vector2(0, 16)
+theme_override_styles/panel = SubResource("StyleBoxFlat_frame")
+
+[node name="BuildTexture" type="TextureRect" parent="buildspanel/VBoxContainer/TextureFrame" unique_id=303649600]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
 texture = ExtResource("3_bnt2g")
 expand_mode = 5
+stretch_mode = 5
 
 [node name="BuildhealthProgressBar" type="TextureProgressBar" parent="buildspanel/VBoxContainer" unique_id=1305098628]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(240, 20)
-custom_maximum_size = Vector2(-1, 20)
+custom_minimum_size = Vector2(210, 22)
+custom_maximum_size = Vector2(-1, 22)
 layout_mode = 2
 size_flags_horizontal = 4
-offset_transform_enabled = true
-theme = SubResource("Theme_5aq7s")
 value = 40.0
 nine_patch_stretch = true
 texture_under = SubResource("GradientTexture2D_gjxql")
 texture_over = SubResource("GradientTexture2D_yddip")
 texture_progress = SubResource("GradientTexture2D_co6qv")
 
-[node name="MarginContainer" type="MarginContainer" parent="buildspanel/VBoxContainer" unique_id=95269945]
+[node name="Panel" type="Panel" parent="buildspanel/VBoxContainer" unique_id=775509551]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-theme_override_constants/margin_left = 26
-theme_override_constants/margin_top = 14
-theme_override_constants/margin_right = 26
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yddip")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="buildspanel/VBoxContainer/MarginContainer" unique_id=1918979824]
+[node name="MarginContainer" type="MarginContainer" parent="buildspanel/VBoxContainer/Panel" unique_id=95269945]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="buildspanel/VBoxContainer/Panel/MarginContainer" unique_id=1918979824]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="buildspanel/VBoxContainer/Panel/MarginContainer/HBoxContainer" unique_id=800585944]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_constants/separation = 18
+theme_override_constants/separation = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer" unique_id=800585944]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="BuildTextLabel" type="RichTextLabel" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1389284340]
+[node name="BuildTextLabel" type="RichTextLabel" parent="buildspanel/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1389284340]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 100)
-custom_maximum_size = Vector2(160, -1)
+custom_minimum_size = Vector2(170, 0)
+custom_maximum_size = Vector2(170, -1)
 layout_mode = 2
-text = "双缝干涉看过2更深刻福建省高科技返回给gfjhjfjftkjfkuf"
+theme_override_font_sizes/normal_font_size = 15
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/italics_font_size = 14
+bbcode_enabled = true
+text = "势力的核心，划定领地范围；被攻破后会易主而非毁灭。"
+fit_content = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer" unique_id=955462417]
+[node name="VBoxContainer2" type="VBoxContainer" parent="buildspanel/VBoxContainer/Panel/MarginContainer/HBoxContainer" unique_id=955462417]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 4
+theme_override_constants/separation = 10
 
-[node name="Upgrade" type="Button" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=851844946]
+[node name="BarracksButton" type="Button" parent="buildspanel/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=851844946]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
+visible = false
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
-text = "升级"
+theme_override_colors/font_color = Color(0.98, 0.937, 0.827, 1)
+theme_override_colors/font_pressed_color = Color(0.855, 0.804, 0.686, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fg1fk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btnpress")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btnhover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btnfocus")
+text = "设计面板"
 
-[node name="block" type="Button" parent="buildspanel/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=653821487]
+[node name="block" type="Button" parent="buildspanel/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=653821487]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.937, 0.827, 1)
+theme_override_colors/font_pressed_color = Color(0.855, 0.804, 0.686, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_fg1fk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btnpress")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btnhover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btnfocus")
 text = "拆除"

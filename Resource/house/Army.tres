@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_40hwo")
 display_name = "兵营"
+description = "训练部队的军事建筑，可招募并指挥士兵作战。"
 time = 5.0
 health = 100.0
 cost_gold = 80.0

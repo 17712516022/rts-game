@@ -31,6 +31,10 @@ func try_build(cell: Vector2i, building_type: ConstructionData.Constructions, ou
 	if ConstructionData.owner_grid[cell.x][cell.y] != null and building_type == ConstructionData.Constructions.LOWERCENTER:
 		out_err.append("附近有行政中心，无法建造")
 		return false
+	# 港口是临水建筑：只有六邻居里挨着水体（河流 / 浅海）的格子才能建
+	if building_type == ConstructionData.Constructions.PORT and not WaterData.has_water_neighbor(cell):
+		out_err.append("港口必须紧邻水体（河流 / 浅海）才能建造")
+		return false
 	
 	var res : ConstructionResource = construction_factory.create_new_construction(building_type)
 	# 检查 + 扣资源一步到位：try_spend 是原子的，花不起就一分不扣（不会出现扣了一半建不成）

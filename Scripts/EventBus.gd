@@ -21,6 +21,8 @@ signal construct_building(building_type : ConstructionResource, cell_pos : Vecto
 @warning_ignore("unused_signal")
 signal center_destroyed(center : Construction)
 
+signal construction_destroyed(build : Construction)
+
 ## 账户变动广播（带阵营）：squad 指明哪个阵营的账户变了，UI 只认自己阵营的变动
 @warning_ignore("unused_signal")
 signal material_changed( material : MaterialManager.MATERIAL , value : float, squad : TeamData.Team)

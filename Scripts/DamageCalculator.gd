@@ -1,22 +1,16 @@
 extends Node
-## 伤害计算器：集中处理所有伤害公式，方便以后加 buff/减伤/暴击等修饰。
-## 用法：take_damage 时调 calculate(actual_attack, defender) 拿到最终伤害值。
+## 伤害计算器：伤害公式的门面。各层伤害加成（全局 / 阵营 / 个体 buff）统一在
+## FinalModifierCalculator 里登记，这里不再自己存修正变量，避免"两个账本各加各的"。
+## 用法：take_damage 时调 calculate(actual_attack, defense) 拿到最终伤害值。
 
-## 攻击方 buff 修正（乘算，1.0=无加成）。外部设置，比如狂暴 buff 设 1.5
-var attacker_modifier: float = 1.0
-## 防御方 buff 修正（乘算，1.0=无减免）。外部设置，比如护盾 buff 设 0.5
-var defender_modifier: float = 1.0
+## 伤害加成的登记来源名：谁登记伤害修正就把 source 传它，reset_modifiers 才能一并撤掉
+const SOURCE := "DamageCalculator"
 
-# 计算最终伤害：攻击力 × 攻击buff - 防御力，再乘防御buff减免，最低 1 点
-func calculate(attack: float, defense: float) -> float:
-	# 第一步：基础伤害 = 攻击力 × 攻击方加成 - 防御力
-	var base: float = attack * attacker_modifier - defense
-	# 第二步：乘防御方减免（比如护盾减半伤害）
-	var final: float = base * defender_modifier
-	# 最低 1 点伤害（避免完全免疫导致打不死）
-	return maxf(1.0, final)
+# 计算最终伤害：攻击力 × 攻击加成 - 防御力，再乘防御方减免，最低 1 点
+# attacker_team / defender_team 不传 = 只吃全局加成
+func calculate(attack: float, defense: float, attacker_team = null, defender_team = null) -> float:
+	return FinalModifierCalculator.damage(attack, defense, attacker_team, defender_team)
 
-# 重置所有 buff 修正（回合结束时调）
+# 重置伤害加成（回合/战斗结束时调）：只撤本来源登记的，不动政策、事件等别人的修正
 func reset_modifiers() -> void:
-	attacker_modifier = 1.0
-	defender_modifier = 1.0
+	FinalModifierCalculator.clear_source(SOURCE)

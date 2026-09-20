@@ -18,12 +18,10 @@ const POP_PER_RESIDENT : float = 15.0
 ## 民居的 display_name（和 Resident.tres 保持一致）
 const RESIDENT_NAME : String = "民居"
 
-## 政策修正（>1 = 增长更快 / 收得更多，<1 = 更慢 / 更少）
-var popu_policy_modifier: float = 1.0
-var tax_policy_modifier: float = 1.0
-## 其他修正（事件 / 建筑 buff 等）
-var popu_other_modifier: float = 1.0
-var tax_other_modifier: float = 1.0
+## 人口增长 / 税收的最终修正统一走 FinalModifierCalculator（按阵营作用域登记）：
+##   FinalModifierCalculator.set_modifier(FinalModifierCalculator.POP_GROWTH, 1.2, "政策:鼓励生育", squad)
+## 政策、事件、建筑 buff 都往那一个地方登记，本文件不再存自己的占位修正变量
+## —— 两个账本各乘一次是这类数值最容易出的错。
 
 func _ready() -> void:
 	EventBus.month_passed.connect(_on_month_passed)
@@ -43,7 +41,8 @@ func _settle_tax(squad : TeamData.Team) -> void:
 	var population := MaterialManager.get_material_number(MaterialManager.MATERIAL.POPULATION, squad)
 	if population <= 0.0:
 		return
-	var income : int = roundi(population * BASE_TAX * tax_policy_modifier * tax_other_modifier)
+	var tax_modifier := FinalModifierCalculator.final(FinalModifierCalculator.TAX, null, squad)
+	var income : int = roundi(population * BASE_TAX * tax_modifier)
 	if income != 0:
 		MaterialManager.receive_material(MaterialManager.MATERIAL.GOLD, float(income), squad)
 
@@ -67,7 +66,8 @@ func _grow_population(squad : TeamData.Team, population : float) -> void:
 	var cap : float = _population_cap(squad)
 	if population >= cap:
 		return
-	var grow : float = population * BASE_PERCENT * popu_policy_modifier * popu_other_modifier
+	var growth_modifier := FinalModifierCalculator.final(FinalModifierCalculator.POP_GROWTH, null, squad)
+	var grow : float = population * BASE_PERCENT * growth_modifier
 	grow = minf(grow, cap - population)
 	var growth : int = roundi(grow)
 	if growth > 0:

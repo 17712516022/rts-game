@@ -14,6 +14,7 @@ func _init() -> void:
 		ConstructionData.Constructions.MINE: preload("res://Resource/house/Mine.tres"),
 		ConstructionData.Constructions.RESIDENT: preload("res://Resource/house/Resident.tres"),
 		ConstructionData.Constructions.ARMY: preload("res://Resource/house/Army.tres"),
+		ConstructionData.Constructions.PORT: preload("res://Resource/house/Port.tres"),
 		ConstructionData.Constructions.TREE : preload("uid://b6wckgmtg7lob"),
 	}
 

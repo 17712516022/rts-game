@@ -15,10 +15,11 @@ const RESIDENT_RES : = preload("res://Resource/house/Resident.tres")
 const FARM_RES : = preload("res://Resource/house/farm.tres")
 const MINE_RES : = preload("res://Resource/house/Mine.tres")
 const ARMY_RES : = preload("res://Resource/house/Army.tres")
+const PORT_RES : = preload("res://Resource/house/Port.tres")
 const TREE_RES = preload("uid://b6wckgmtg7lob")
 
 enum Constructions {
-	CENTER,LOWERCENTER,FARM,MINE,RESIDENT,ARMY,TREE
+	CENTER,LOWERCENTER,FARM,MINE,RESIDENT,ARMY,TREE,PORT
 }
 
 ## 保证 owner_grid 已经和地图同尺寸初始化（未归属格=null）

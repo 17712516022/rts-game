@@ -40,14 +40,12 @@ func SetupChaseHitbox() -> void:
 func SetUP(context_speed : float) -> void:
 	speed = context_speed
 
+## 当前格的速度：统一走 WaterData 查询——通航水道（被描边的河流格）系数是 1.0，
+## 其余地形照旧按 ModifierData（河流原本只有 0.1，通了港口才不减速）
 func get_speed() -> float:
 	var pos : Vector2 = soider.global_position
 	var cell_pos : Vector2i = PositionCaculater.calculate_cell(pos)
-	var terr : MapData.TERRAIN = MapData.terrain_grid[cell_pos.x][cell_pos.y]
-	var modifers : Dictionary = ModifierData.Modifiers[terr]
-	var speed_modifer = modifers["MoveSpeedModifier"]
-	
-	return speed * speed_modifer
+	return speed * WaterData.get_move_speed_modifier(cell_pos)
 
 func get_dirction() -> Vector2:
 	return dirction
